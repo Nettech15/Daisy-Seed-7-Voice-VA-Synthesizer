@@ -1,3 +1,34 @@
+Quick description of the project:
+
+This code is a modification of OscPocketD/VASynth, created by Staffan Melin, staffan.melin@oscillator.se.
+It was later modified by (Steven @moonfriendsynth) to work with the Daisy Pod.
+I (Christopher @Nettech15) have moified it further to run on the Daisy Seed without the use of the Daisy Pod board.
+Synth parameters are now controlled by a Miditech i2-61 midi keyboard.
+Multiple Daisy Seeds will appear as USB-MIDI devices with the name "Daisy Seed Built in" and the device number.
+Audio output/input is thru the built-in audio codec.
+
++ Added Audio Input PassThru and MIDI indicator. 
++ Upgraded DaisySP to Infrasonic MoogLadder code.
++ Added synthesized PW using the VASynth::RAMP wave.
++ Added Param Switch and Data Entry Slider. 
++ Added QSPI storage for eight user patches. Made eight selectable presets.
++ Added USB-MIDI input.
++ Added Stereo Simulator. 
++ Added Moogladder filter. 
++ Added Dynamic Voice Allocation. 
++ Added velocity control to VCA and VCF.
+
+- Removed Circular Voice Allocation.
+- Removed Portamento.
+- Removed SVF.
+- Removed Reverb.
+- Removed Serial MIDI input.
+- Removed all Daisy Pod related code (Knobs, Switches, and Encoder).
+- Removed VCF, VCA, and Pitch Mod to LFO envelope code.
+
+Feel free to copy, modify, and improve this code to match your equipment and sound requirements.
+In the meantime, I will be actively working on implementing more features and fixing existing problems.
+
 How to use the Daisy Seed 8-Voice VA Synthesizer:
 
 Connect audio outputs of the Daisy Seed board to an amp, mixer, or headphones.
@@ -9,7 +40,7 @@ Select "Miditechi2-61" as your MIDI Input device.
 Select "Daisy Seed Built In" as your MIDI Output device.
 If more than one Daisy Seed board is connected, it will appear as device "Daisy Seed Built In #X". Select its board number.
 The default patch loaded on startup is a PolySynth sound.
-Follow the instructions in "Params.txt" to select presets, modify parameters, and store new patches.
+Follow the instructions in "Daisy Seed Synth Parameters.txt" to select presets, modify parameters, and store new patches.
 
 
 Specifications:
@@ -32,8 +63,8 @@ VCF envelope level.
 Stereo simulation effect.
 
 
->>>> Daisy Seed 8-Voice VA Synthesizer with USB-MIDI Interface - Editable Parameters <<<<
-(Parameters marked with a "-" have not been implemented yet)
+>>>> Editable Parameters <<<<
+(Parameters marked with a "-" have not been implemented yet, but are planned for the near future.)
 
 Select Program Change 1 thru 29, then adjust the parameters value by moving the Data Slider.
 
@@ -97,6 +128,3 @@ Select Program Change 50 thru 57 to store a user patch.
  (55): // User Patch Store #6
  (56): // User Patch Store #7
  (57): // User Patch Store #8
-
-
-

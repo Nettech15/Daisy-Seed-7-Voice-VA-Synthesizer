@@ -1,30 +1,32 @@
 /*
-
-Project: OscPocketD/VASynth - Daisy Pod Version
-Description: polyphonic MIDI Virtual Analog synthsizer for OscPcoketD/Base2 (Daisy Seed)
-Author: Staffan Melin, staffan.melin@oscillator.se
-License: GNU General Public License v3.0
-Version: 202109
-Project site: http://www.oscillator.se/opensource
-
-EDIT: This code was modified by Steven @moonfriendsynth, who doesn't know shit about shit when it 
-comes to C++, but I tried my best. So please be cautious as you read/use this 
-code. If you find yourself wondering, "why did he do x, y, or z?" just assume that Steve is saying
-"Man, I dunno, good question." I did my best to copy code from either Daisy examples or other open
-source projects. Please feel free to take this code and make it better or use it for whatever.
-
-EDIT: 1/22/22 v3.2.3 This code was modified again by Christopher @Nettech.
-It runs on the Daisy Seed and no longer requires a Daisy Pod board to operate.
+This code is a modification of OscPocketD/VASynth, created by Staffan Melin, staffan.melin@oscillator.se.
+It was later modified by (Steven @moonfriendsynth) to work with the Daisy Pod.
+I (Christopher @Nettech15) have moified it further to run on the Daisy Seed without the use of the Daisy Pod board.
 Synth parameters are now controlled by a Miditech i2-61 midi keyboard.
 Multiple Daisy Seeds will appear as USB-MIDI devices with the name "Daisy Seed Built in" and the device number.
 Audio output/input is thru the built-in audio codec.
-- Added Audio Input PassThru and MIDI indicator. Upgraded DaisySP to Infrasonic MoogLadder code.
-- Added synthesized PW using the VASynth::RAMP wave.
-- Added Param Switch and Data Entry Slider. Added common parameters. 
-- Added QSPI storage for eight user patches. Made eight selectable presets.
-- Added USB-MIDI input. Added Stereo Simulator. Added Moogladder filter. 
-- Added Dynamic Voice Assignment. Added velocity control to VCA and VCF.
 
++ Added Audio Input PassThru and MIDI indicator. 
++ Upgraded DaisySP to Infrasonic MoogLadder code.
++ Added synthesized PW using the VASynth::RAMP wave.
++ Added Param Switch and Data Entry Slider. 
++ Added QSPI storage for eight user patches. Made eight selectable presets.
++ Added USB-MIDI input.
++ Added Stereo Simulator. 
++ Added Moogladder filter. 
++ Added Dynamic Voice Allocation. 
++ Added velocity control to VCA and VCF.
+
+- Removed Circular Voice Allocation.
+- Removed Portamento.
+- Removed SVF.
+- Removed Reverb.
+- Removed Serial MIDI input.
+- Removed all Daisy Pod related code (Knobs, Switches, and Encoder).
+- Removed VCF, VCA, and Pitch Mod to LFO envelope code.
+
+Feel free to copy, modify, and improve this code to match your equipment and sound requirements.
+In the meantime, I will be actively working on implementing more features and fixing existing problems.
 */
 
 #include "daisy_seed.h"
