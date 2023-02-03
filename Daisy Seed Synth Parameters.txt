@@ -1,4 +1,5 @@
->>>> Daisy Seed 8-Voice VA Synthesizer with USB-MIDI Interface - Editable Parameters <<<<
+Editable Parameters:
+
 (Parameters marked with a "-" have not been implemented yet, but are planned for the near future.)
 
 Select Program Change 1 thru 29, then adjust the parameters value by moving the Data Slider.

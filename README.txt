@@ -2,16 +2,16 @@ Quick description of the project:
 
 This code is a modification of OscPocketD/VASynth, created by Staffan Melin, staffan.melin@oscillator.se.
 It was later modified by (Steven @moonfriendsynth) to work with the Daisy Pod.
-I (Christopher @Nettech15) have moified it further to run on the Daisy Seed without the use of the Daisy Pod board.
+I (Christopher @Nettech15) have modified it further to run on the Daisy Seed without the use of the Daisy Pod board.
 Synth parameters are now controlled by a Miditech i2-61 midi keyboard.
 Multiple Daisy Seeds will appear as USB-MIDI devices with the name "Daisy Seed Built in" and the device number.
 Audio output/input is thru the built-in audio codec.
 
-+ Added Audio Input PassThru and MIDI indicator. 
-+ Upgraded DaisySP to Infrasonic MoogLadder code.
++ Upgraded DaisySP with Infrasonic MoogLadder Filter code.
 + Added synthesized PW using the VASynth::RAMP wave.
 + Added Param Switch and Data Entry Slider. 
 + Added QSPI storage for eight user patches. Made eight selectable presets.
++ Added Audio Input PassThru and MIDI indicator. 
 + Added USB-MIDI input.
 + Added Stereo Simulator. 
 + Added Moogladder filter. 
@@ -31,39 +31,42 @@ In the meantime, I will be actively working on implementing more features and fi
 
 How to use the Daisy Seed 8-Voice VA Synthesizer:
 
-Connect audio outputs of the Daisy Seed board to an amp, mixer, or headphones.
-Plug the Daisy Seed board into your computers USB port.
-Make and Program the Daisy Seed board with the software.
-Connect a MIDI Keyboard to your computers USB port. I am using a MidiTech i2-61 MIDI controller currently.
-Run VMPK or any MIDI Sequencer software. I use FL Studio currently.
-Select "Miditechi2-61" as your MIDI Input device.
-Select "Daisy Seed Built In" as your MIDI Output device.
-If more than one Daisy Seed board is connected, it will appear as device "Daisy Seed Built In #X". Select its board number.
-The default patch loaded on startup is a PolySynth sound.
-Follow the instructions in "Daisy Seed Synth Parameters.txt" to select presets, modify parameters, and store new patches.
+- Copy the files from the "DaisySP Filter Upgrade" directory into your DaisySP/Source/Filters directory.
+- Run "Build DaisySP" task to update the library. 
+- Connect audio outputs of the Daisy Seed board to an amp, mixer, or headphones.
+- Plug the Daisy Seed board into your computers USB port.
+- Run "Build and Program" to load the Daisy Seed board with the software.
+- Connect a MIDI Keyboard to your computers USB port. I am using a MidiTech i2-61 MIDI controller currently.
+- Run VMPK or any MIDI Sequencer software. I use FL Studio currently.
+- Select "Miditechi2-61" as your MIDI Input device.
+- Select "Daisy Seed Built In" as your MIDI Output device.
+- If more than one Daisy Seed board is connected, it will appear as device "Daisy Seed Built In #X". Select its board number.
+- The default patch loaded on startup is a PolySynth sound.
+- Follow the instructions in "Daisy Seed Synth Parameters.txt" to select presets, modify parameters, and store new patches.
 
 
 Specifications:
 
-8 voice polyphonic.
-Dual oscillator per voice.
-VCA per voice. 
-VCF (4-pole Resonant low-pass) per voice.
-Separate ADSR's for VCA and VCF
-MIDI Editable parameters. 
-Eight Preset Patches.
-Eight User-Programmable Patches using QSPI Flash memory storage.
-Waveform select for both oscillators; Sine/Triangle/Pulse-Width-Square/Saw/Square/Polyblep-Tri/Polyblep-Saw/Polyblep-Square
-Oscillator mix. 
-Oscillator #2 De-tune. 
-Scale for Oscillator #2. 
-LFO for Pitch Modulation. 
-Keyboard velocity routable to VCA and/or VCF. 
-VCF envelope level. 
-Stereo simulation effect.
+- 8 voice polyphonic.
+- Dual oscillator per voice.
+- VCA per voice. 
+- VCF (4-pole Resonant low-pass) per voice.
+- Separate ADSR's for VCA and VCF
+- MIDI Editable parameters. 
+- Eight Preset Patches.
+- Eight User-Programmable Patches using QSPI Flash memory storage.
+- Waveform select for both oscillators; Sine/Triangle/Pulse-Width-Square/Saw/Square/Polyblep-Tri/Polyblep-Saw/Polyblep-Square
+- Oscillator mix. 
+- Oscillator #2 De-tune. 
+- Scale for Oscillator #2. 
+- LFO for Pitch Modulation. 
+- Keyboard velocity routable to VCA and/or VCF. 
+- VCF envelope level. 
+- Stereo simulation effect.
 
 
->>>> Editable Parameters <<<<
+Editable Parameters:
+
 (Parameters marked with a "-" have not been implemented yet, but are planned for the near future.)
 
 Select Program Change 1 thru 29, then adjust the parameters value by moving the Data Slider.

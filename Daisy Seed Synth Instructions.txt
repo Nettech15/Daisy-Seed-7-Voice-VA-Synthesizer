@@ -1,12 +1,14 @@
 How to use the Daisy Seed 8-Voice VA Synthesizer:
 
-Connect audio outputs of the Daisy Seed board to an amp, mixer, or headphones.
-Plug the Daisy Seed board into your computers USB port.
-Make and Program the Daisy Seed board with the software.
-Connect a MIDI Keyboard to your computers USB port. I am using a MidiTech i2-61 MIDI controller currently.
-Run VMPK or any MIDI Sequencer software. I use FL Studio currently.
-Select "Miditechi2-61" as your MIDI Input device.
-Select "Daisy Seed Built In" as your MIDI Output device.
-If more than one Daisy Seed board is connected, it will appear as device "Daisy Seed Built In #X". Select its board number.
-The default patch loaded on startup is a PolySynth sound.
-Follow the instructions in "Daisy Seed Synth Parameters.txt" to select presets, modify parameters, and store new patches.
+- Copy the files from the "DaisySP Filter Upgrade" directory into your DaisySP/Source/Filters directory.
+- Run "Build DaisySP" task to update the library. 
+- Connect audio outputs of the Daisy Seed board to an amp, mixer, or headphones.
+- Plug the Daisy Seed board into your computers USB port.
+- Run "Build and Program" to load the Daisy Seed board with the software.
+- Connect a MIDI Keyboard to your computers USB port. I am using a MidiTech i2-61 MIDI controller currently.
+- Run VMPK or any MIDI Sequencer software. I use FL Studio currently.
+- Select "Miditechi2-61" as your MIDI Input device.
+- Select "Daisy Seed Built In" as your MIDI Output device.
+- If more than one Daisy Seed board is connected, it will appear as device "Daisy Seed Built In #X". Select its board number.
+- The default patch loaded on startup is a PolySynth sound.
+- Follow the instructions in "Daisy Seed Synth Parameters.txt" to select presets, modify parameters, and store new patches.
