@@ -7,7 +7,7 @@ Synth parameters are now controlled by a Miditech i2-61 midi keyboard.
 Multiple Daisy Seeds will appear as USB-MIDI devices with the name "Daisy Seed Built in" and the device number.
 Audio output/input is thru the built-in audio codec.
 
-+ Upgraded DaisySP with Infrasonic MoogLadder Filter code.
++ Upgraded DaisySP with more efficient MoogLadder Filter code.
 + Added synthesized PW using the VASynth::RAMP wave.
 + Added Param Switch and Data Entry Slider. 
 + Added QSPI storage for eight user patches. Made eight selectable presets.
