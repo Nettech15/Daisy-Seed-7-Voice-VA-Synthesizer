@@ -5,7 +5,7 @@
 // settings
 #define WAVEFORMS_MAX 8
 #define VOICES_MAX 8
-#define FILTER_CUTOFF_MAX 12000.0f
+#define FILTER_CUTOFF_MAX 18000.0f
 
 // play status
 #define PLAY_OFF 0
