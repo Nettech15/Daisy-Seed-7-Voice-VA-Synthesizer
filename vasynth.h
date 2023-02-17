@@ -122,6 +122,7 @@ class VASynth
 	float note_freq_[VOICES_MAX];
 
 	float dtadjust[VOICES_MAX] = {1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f};
+	float modadjust[VOICES_MAX] = {1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f};
 	float velocity[VOICES_MAX];
 
 	Oscillator osc_[VOICES_MAX];

@@ -254,10 +254,11 @@ void VASynth::Process(float *out_l, float *out_r)
 
 		// LFO - MOD
 		// This is an attempt to make osc2 detune and modulation wheel sound a little more exponential
-		dtadjust[i] = (osc2_detune_ * (float (note_midi_[i])/42.0f));
+		modadjust[i] = (float (note_midi_[i])/42.0f);
+		dtadjust[i] = (osc2_detune_ * (modadjust[i]));
 
-		osc_[i].SetFreq((note_freq_[i] + detune_) + (lfo_out * 20 * dtadjust[i]));
-		osc2_[i].SetFreq(((note_freq_[i] * osc2_transpose_) + dtadjust[i] + detune_) + (lfo_out * 20 * dtadjust[i]));
+		osc_[i].SetFreq((note_freq_[i] + detune_) + (lfo_out * 20 * modadjust[i]));
+		osc2_[i].SetFreq(((note_freq_[i] * osc2_transpose_) + dtadjust[i] + detune_) + (lfo_out * 20 * modadjust[i]));
 		 
 		// osc + osc2 mixer
 		osc_one = osc_[i].Process();
