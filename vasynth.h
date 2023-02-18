@@ -7,7 +7,7 @@
 #include "main.h"
 
 // preset
-#define PRESET_MAX 8
+#define PRESET_MAX 10
 
 using namespace daisy;
 using namespace daisysp;

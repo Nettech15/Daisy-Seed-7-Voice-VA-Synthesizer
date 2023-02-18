@@ -8,15 +8,15 @@ Multiple Daisy Seeds will appear as USB-MIDI devices with the name "Daisy Seed B
 Audio output/input is thru the built-in audio codec.
 
 + Upgraded DaisySP with more efficient MoogLadder Filter code.
-+ Added synthesized PW using the VASynth::RAMP wave.
++ Added synthesized PW square waves using the VASynth::RAMP wave.
 + Added Param Switch and Data Entry Slider. 
-+ Added QSPI storage for eight user patches. Made eight selectable presets.
++ Added QSPI storage for ten user patches. Made ten selectable presets.
 + Added Audio Input PassThru and MIDI indicator. 
 + Added USB-MIDI input.
 + Added Stereo Simulator. 
 + Added Moogladder filter. 
 + Added Dynamic Voice Allocation. 
-+ Added velocity control to VCA and VCF.
++ Added keyboard velocity control to VCA and VCF.
 
 - Removed Circular Voice Allocation.
 - Removed Portamento.
@@ -24,7 +24,6 @@ Audio output/input is thru the built-in audio codec.
 - Removed Reverb.
 - Removed Serial MIDI input.
 - Removed all Daisy Pod related code (Knobs, Switches, and Encoder).
-- Removed VCF, VCA, and Pitch Mod to LFO envelope code.
 
 Feel free to copy, modify, and improve this code to match your equipment and sound requirements.
 In the meantime, I will be actively working on implementing more features and fixing existing problems.
@@ -53,8 +52,8 @@ Specifications:
 - VCF (4-pole Resonant low-pass) per voice.
 - Separate ADSR's for VCA and VCF
 - MIDI Editable parameters. 
-- Eight Preset Patches.
-- Eight User-Programmable Patches using QSPI Flash memory storage.
+- Ten Preset Patches.
+- Ten User-Programmable Patches using QSPI Flash memory storage.
 - Waveform select for both oscillators; Sine/Triangle/Pulse-Width-Square/Saw/Square/Polyblep-Tri/Polyblep-Saw/Polyblep-Square
 - Oscillator mix. 
 - Oscillator #2 De-tune. 
@@ -72,7 +71,7 @@ Editable Parameters:
 Select Program Change 1 thru 29, then adjust the parameters value by moving the Data Slider.
 
  -(1): // Master Tuning
- (2): // Modulation
+ -(2): // VCF Envelope to VCA Switch
  (3): // Osc Select 1
  (4): // Osc Select 2
  (5): // OSC Mix
@@ -94,14 +93,14 @@ Select Program Change 1 thru 29, then adjust the parameters value by moving the 
  (21): // VCF Envelope level
  (22): // Mod LFO rate
  -(23): // PWM LFO rate
- -(24): // PWM2 LFO rate
- -(25): // VCF LFO rate
- -(26): // VCF LFO Mod level
- -(27): // PWM LFO Mod level
- -(28): // PWM2 LFO Mod level
- -(29): // Unassigned
+ -(24): // PWM LFO Mod level
+ -(25): // PWM2 LFO rate
+ -(26): // PWM2 LFO Mod level
+ -(27): // VCF/VCA LFO rate
+ -(28): // VCF LFO Mod level
+ -(29): // VCA LFO Mod level
 
-Select Program Change 30 thru 37 to choose a preset patch.
+Select Program Change 30 thru 39 to choose a preset patch.
 
  (30): // Preset Select #1
  (31): // Preset Select #2
@@ -111,8 +110,11 @@ Select Program Change 30 thru 37 to choose a preset patch.
  (35): // Preset Select #6
  (36): // Preset Select #7
  (37): // Preset Select #8
+ (38): // Preset Select #9
+ (39): // Preset Select #10
   
-Select Program Change 40 thru 47 to load a user patch.
+Select Program Change 40 thru 49 to load a user patch.
+
  (40): // User Patch Select #1
  (41): // User Patch Select #2
  (42): // User Patch Select #3
@@ -121,8 +123,11 @@ Select Program Change 40 thru 47 to load a user patch.
  (45): // User Patch Select #6
  (46): // User Patch Select #7
  (47): // User Patch Select #8
+ (48): // User Patch Select #9
+ (49): // User Patch Select #10
 
-Select Program Change 50 thru 57 to store a user patch.
+Select Program Change 50 thru 59 to store a user patch.
+
  (50): // User Patch Store #1
  (51): // User Patch Store #2
  (52): // User Patch Store #3
@@ -131,3 +136,5 @@ Select Program Change 50 thru 57 to store a user patch.
  (55): // User Patch Store #6
  (56): // User Patch Store #7
  (57): // User Patch Store #8
+ (58): // User Patch Store #9
+ (59): // User Patch Store #10

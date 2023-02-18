@@ -72,6 +72,18 @@ VASynthSetting preset_setting[PRESET_MAX] =
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, -0.8f
+	},
+	{//9
+		VASynth::WAVE_RAMP, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, -0.8f,
+		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
+		VASynth::WAVE_SIN, 0.5f, 0.0f,
+		VASynth::WAVE_RAMP, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, -0.8f
+	},
+	{//10
+		VASynth::WAVE_SIN, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, -0.8f,
+		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
+		VASynth::WAVE_SIN, 0.5f, 0.0f,
+		VASynth::WAVE_SIN, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, -0.8f
 	}
 };
 

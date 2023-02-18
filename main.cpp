@@ -7,15 +7,15 @@ Multiple Daisy Seeds will appear as USB-MIDI devices with the name "Daisy Seed B
 Audio output/input is thru the built-in audio codec.
 
 + Upgraded DaisySP with more efficient MoogLadder code.
-+ Added synthesized PW using the VASynth::RAMP wave.
++ Added synthesized PW square waves using the VASynth::RAMP wave.
 + Added Param Switch and Data Entry Slider. 
-+ Added QSPI storage for eight user patches. Made eight selectable presets.
++ Added QSPI storage for ten user patches. Made ten selectable presets.
 + Added Audio Input PassThru and MIDI indicator. 
 + Added USB-MIDI input.
 + Added Stereo Simulator. 
 + Added Moogladder filter. 
 + Added Dynamic Voice Allocation. 
-+ Added velocity control to VCA and VCF.
++ Added keyboard velocity control to VCA and VCF.
 
 - Removed Circular Voice Allocation.
 - Removed Portamento.
@@ -23,7 +23,6 @@ Audio output/input is thru the built-in audio codec.
 - Removed Reverb.
 - Removed Serial MIDI input.
 - Removed all Daisy Pod related code (Knobs, Switches, and Encoder).
-- Removed VCF, VCA, and Pitch Mod to LFO envelope code.
 
 Feel free to copy, modify, and improve this code to match your equipment and sound requirements.
 In the meantime, I will be actively working on implementing more features and fixing existing problems.
@@ -282,6 +281,16 @@ void HandleMidiMessage(MidiEvent m)
 							vasynth.SaveToLive(&preset_setting[7]);
 							break;
 						}
+						case 37:
+						{
+							vasynth.SaveToLive(&preset_setting[8]);
+							break;
+						}
+						case 38:
+						{
+							vasynth.SaveToLive(&preset_setting[9]);
+							break;
+						}
 						case 39:
 						{
 							vasynth.FlashLoad(0);
@@ -322,6 +331,16 @@ void HandleMidiMessage(MidiEvent m)
 							vasynth.FlashLoad(7);
 							break;
 						}
+						case 47:
+						{
+							vasynth.FlashLoad(8);
+							break;
+						}
+						case 48:
+						{
+							vasynth.FlashLoad(9);
+							break;
+						}
 						case 49:
 						{
 							vasynth.FlashSave(0);
@@ -360,6 +379,16 @@ void HandleMidiMessage(MidiEvent m)
 						case 56:
 						{
 							vasynth.FlashSave(7);
+							break;
+						}
+						case 57:
+						{
+							vasynth.FlashSave(8);
+							break;
+						}
+						case 58:
+						{
+							vasynth.FlashSave(9);
 							break;
 						}
 					}
