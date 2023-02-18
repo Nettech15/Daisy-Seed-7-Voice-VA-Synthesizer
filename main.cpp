@@ -47,6 +47,7 @@ extern uint8_t preset_max;
 extern VASynthSetting preset_setting[PRESET_MAX];
 
 uint8_t param_;
+float pitch_bend = 1.0f;
 
 // sound
 VASynth vasynth;
@@ -99,6 +100,15 @@ void HandleMidiMessage(MidiEvent m)
 			{
 				vasynth.NoteOff(p.note);
 				hardware.SetLed(false);
+			}			
+	        break;
+        } 
+		case PitchBend:
+        {
+            PitchBendEvent p = m.AsPitchBend();
+            if ((vasynth.midi_channel_ == MIDI_CHANNEL_ALL) || (p.channel == vasynth.midi_channel_))
+			{
+				vasynth.PitchBend(p.value);
 			}			
 	        break;
         } 

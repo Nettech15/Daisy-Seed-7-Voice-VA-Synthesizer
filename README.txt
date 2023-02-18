@@ -71,7 +71,7 @@ Editable Parameters:
 
 Select Program Change 1 thru 29, then adjust the parameters value by moving the Data Slider.
 
- -(1): // Pitch Bend
+ -(1): // Master Tuning
  (2): // Modulation
  (3): // Osc Select 1
  (4): // Osc Select 2

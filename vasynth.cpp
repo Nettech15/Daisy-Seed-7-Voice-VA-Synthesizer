@@ -13,6 +13,7 @@ extern float sysSampleRate;
 extern uint8_t gPlay;
 
 extern uint8_t param_;
+extern float pitch_bend;
 
 // fx
 static DelayLine<float, DELAY_MAX> DSY_SDRAM_BSS delay_;
@@ -199,6 +200,7 @@ void VASynth::Process(float *out_l, float *out_r)
 	float delay_out;
 	float pw_amp;
 	float pw2_amp;
+	float bender;
 
 	bool note_on;
 
@@ -252,15 +254,16 @@ void VASynth::Process(float *out_l, float *out_r)
 			osc2_[i].SetAmp(1.0f);
 		}
 
-		// LFO - MOD
+		// Pitch modulation and osc2 detune
 		// This is an attempt to make osc2 detune and modulation wheel sound a little more exponential
 		modadjust[i] = (float (note_midi_[i])/42.0f);
 		dtadjust[i] = (osc2_detune_ * (modadjust[i]));
 
-		osc_[i].SetFreq((note_freq_[i] + detune_) + (lfo_out * 20 * modadjust[i]));
-		osc2_[i].SetFreq(((note_freq_[i] * osc2_transpose_) + dtadjust[i] + detune_) + (lfo_out * 20 * modadjust[i]));
+		// Set osc + osc2 frequencies with pitch bend and mix them
+		bender = bender_offset[i] * pitch_bend;
+		osc_[i].SetFreq((note_freq_[i] + detune_ + bender) + (lfo_out * 20 * modadjust[i]));
+		osc2_[i].SetFreq((((note_freq_[i] * osc2_transpose_) + bender) + dtadjust[i] + detune_) + (lfo_out * 20 * modadjust[i]));
 		 
-		// osc + osc2 mixer
 		osc_one = osc_[i].Process();
 		osc_two = osc2_[i].Process();
 		if(waveform_ == WAVE_RAMP)
@@ -352,6 +355,7 @@ void VASynth::NoteOn(uint8_t midi_note, uint8_t midi_velocity)
 		{
 			note_midi_[osc_next_] = midi_note;
 			note_freq_[osc_next_] = mtof(note_midi_[osc_next_]);
+			bender_offset[osc_next_] = ((note_freq_[osc_next_]) - (mtof(note_midi_[osc_next_] + 1)));
 			velocity[osc_next_] = ((float)midi_velocity / MIDI_VELOCITY_MAX);
 			break;
 		}
@@ -367,6 +371,11 @@ void VASynth::NoteOff(uint8_t midi_note)
 			note_midi_[i] = 0;
 		}
 	}
+}	
+
+void VASynth::PitchBend(int16_t data)
+{
+	pitch_bend = 1.0f - ((float)data / 4096.0f);
 }	
 
 void VASynth::ProgramChange(uint8_t data)

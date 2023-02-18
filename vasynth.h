@@ -79,6 +79,7 @@ class VASynth
 	void FlashLoad(uint8_t aSlot);
 	void FlashSave(uint8_t aSlot);
 	void ProgramChange(uint8_t data);
+	void PitchBend(int16_t data);
 	void SaveToLive(VASynthSetting *);
 	void LiveToSave(VASynthSetting *);
 
@@ -124,6 +125,7 @@ class VASynth
 	float dtadjust[VOICES_MAX] = {1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f};
 	float modadjust[VOICES_MAX] = {1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f};
 	float velocity[VOICES_MAX];
+	float bender_offset[VOICES_MAX];
 
 	Oscillator osc_[VOICES_MAX];
 	Adsr eg_a_[VOICES_MAX];
