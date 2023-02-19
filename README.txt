@@ -1,4 +1,4 @@
-Quick description of the project:
+Description of the project:
 
 This code is a modification of OscPocketD/VASynth, created by Staffan Melin, staffan.melin@oscillator.se.
 It was later modified by (Steven @moonfriendsynth) to work with the Daisy Pod.
