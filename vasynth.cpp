@@ -274,7 +274,7 @@ void VASynth::Process(float *out_l, float *out_r)
 		// Set osc + osc2 frequencies with pitch bend and mix them
 		bender = bender_offset[i] * pitch_bend;
 		osc_[i].SetFreq((note_freq_[i] + detune_ + bender) + (lfo_out * 20 * modadjust[i]));
-		osc2_[i].SetFreq((((note_freq_[i] * osc2_transpose_) + bender) + dtadjust[i] + detune_) + (lfo_out * 20 * modadjust[i]));
+		osc2_[i].SetFreq((((note_freq_[i] * osc2_transpose_) + (bender * osc2_transpose_)) + dtadjust[i] + detune_) + (lfo_out * 20 * modadjust[i]));
 		 
 		osc_one = osc_[i].Process();
 		osc_two = osc2_[i].Process();
