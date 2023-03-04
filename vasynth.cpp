@@ -14,6 +14,7 @@ extern uint8_t gPlay;
 
 extern uint8_t param_;
 extern float pitch_bend;
+extern float master_tune;
 
 // fx
 static DelayLine<float, DELAY_MAX> DSY_SDRAM_BSS delay_;
@@ -213,6 +214,7 @@ void VASynth::Process(float *out_l, float *out_r)
 	float pw_amp;
 	float pw2_amp;
 	float bender;
+	float tuning;
 
 	bool note_on;
 
@@ -272,9 +274,10 @@ void VASynth::Process(float *out_l, float *out_r)
 		dtadjust[i] = (osc2_detune_ * (modadjust[i]));
 
 		// Set osc + osc2 frequencies with pitch bend and mix them
+		tuning = bender_offset[i] * master_tune;
 		bender = bender_offset[i] * pitch_bend;
-		osc_[i].SetFreq((note_freq_[i] + detune_ + bender) + (lfo_out * 20 * modadjust[i]));
-		osc2_[i].SetFreq((((note_freq_[i] * osc2_transpose_) + (bender * osc2_transpose_)) + dtadjust[i] + detune_) + (lfo_out * 20 * modadjust[i]));
+		osc_[i].SetFreq((note_freq_[i] + detune_ + bender + tuning) + (lfo_out * 20 * modadjust[i]));
+		osc2_[i].SetFreq((((note_freq_[i] * osc2_transpose_) + (bender * osc2_transpose_) + (tuning * osc2_transpose_)) + dtadjust[i] + detune_) + (lfo_out * 20 * modadjust[i]));
 		 
 		osc_one = osc_[i].Process();
 		osc_two = osc2_[i].Process();

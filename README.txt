@@ -7,6 +7,7 @@ Synth parameters are now controlled by a Miditech i2-61 midi keyboard.
 Multiple Daisy Seeds will appear as USB-MIDI devices with the name "Daisy Seed Built in" and the device number.
 Audio output/input is thru the built-in audio codec.
 
++ Added Master Tuning, Pitch Bend Wheel, and Pitch Modulation Wheel
 + Upgraded DaisySP with more efficient MoogLadder Filter code.
 + Added synthesized PW square waves using the VASynth::RAMP wave.
 + Added Param Switch and Data Entry Slider. 
@@ -70,7 +71,7 @@ Editable Parameters:
 
 Select Program Change 1 thru 29, then adjust the parameters value by moving the Data Slider.
 
- -(1): // Master Tuning
+ (1): // Master Tuning
  -(2): // VCF Envelope to VCA Switch
  (3): // Osc Select 1
  (4): // Osc Select 2

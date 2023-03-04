@@ -4,7 +4,7 @@ Editable Parameters:
 
 Select Program Change 1 thru 29, then adjust the parameters value by moving the Data Slider.
 
- -(1): // Master Tuning
+ (1): // Master Tuning
  -(2): // VCF Envelope to VCA Switch
  (3): // Osc Select 1
  (4): // Osc Select 2
