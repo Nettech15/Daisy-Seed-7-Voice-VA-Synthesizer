@@ -9,7 +9,7 @@ Audio output/input is thru the built-in audio codec.
 
 + Added Master Tuning, Pitch Bend Wheel, and Pitch Modulation Wheel
 + Upgraded DaisySP with more efficient MoogLadder Filter code.
-+ Added synthesized PW square waves using the VASynth::RAMP wave.
++ Added PW to the square waves.
 + Added Param Switch and Data Entry Slider. 
 + Added QSPI storage for ten user patches. Made ten selectable presets.
 + Added Audio Input PassThru and MIDI indicator. 
