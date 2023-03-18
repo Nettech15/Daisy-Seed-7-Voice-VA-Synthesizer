@@ -37,6 +37,10 @@ typedef struct
 	uint8_t lfo_waveform;
 	float lfo_freq;
 	float lfo_amp;
+
+	uint8_t pwmlfo_waveform;
+	float pwmlfo_freq;
+	float pwmlfo_amp;
 	
 	uint8_t osc2_waveform;
 	float osc2_detune;
@@ -73,6 +77,7 @@ class VASynth
 	void SetEG();
 	void SetFilter();
 	void SetLFO();
+	void SetPWMLFO();
 	void Process(float *, float *);
 	void NoteOn(uint8_t midi_note, uint8_t midi_velocity = MIDI_VELOCITY_MAX);
 	void NoteOff(uint8_t midi_note);
@@ -109,6 +114,10 @@ class VASynth
 	float lfo_freq_;
 	float lfo_amp_;
 
+	uint8_t pwmlfo_waveform_;
+	float pwmlfo_freq_;
+	float pwmlfo_amp_;
+
 	uint8_t osc2_waveform_;
 	float osc2_detune_;
 	float osc2_transpose_;
@@ -128,11 +137,12 @@ class VASynth
 	float bender_offset[VOICES_MAX];
 
 	Oscillator osc_[VOICES_MAX];
+	Oscillator osc2_[VOICES_MAX];
+	Oscillator lfo_;
+	Oscillator pwmlfo_;
 	Adsr eg_a_[VOICES_MAX];
 	Adsr eg_f_[VOICES_MAX];
 	MoogLadder flt[VOICES_MAX];
-	Oscillator lfo_;
-	Oscillator osc2_[VOICES_MAX];
 };
 
 #endif

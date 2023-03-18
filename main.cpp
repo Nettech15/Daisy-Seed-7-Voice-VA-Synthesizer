@@ -8,7 +8,7 @@ Audio output/input is thru the built-in audio codec.
 
 + Added Master Tuning, Pitch Bend Wheel, and Pitch Modulation Wheel
 + Upgraded DaisySP with more efficient MoogLadder code.
-+ Added PW to the square waves.
++ Added PW/PWM square waves.
 + Added Param Switch and Data Entry Slider. 
 + Added QSPI storage for ten user patches. Made ten selectable presets.
 + Added Audio Input PassThru and MIDI indicator. 
@@ -17,13 +17,6 @@ Audio output/input is thru the built-in audio codec.
 + Added Moogladder filter. 
 + Added Dynamic Voice Allocation. 
 + Added keyboard velocity control to VCA and VCF.
-
-- Removed Circular Voice Allocation.
-- Removed Portamento.
-- Removed SVF.
-- Removed Reverb.
-- Removed Serial MIDI input.
-- Removed all Daisy Pod related code (Knobs, Switches, and Encoder).
 
 Feel free to copy, modify, and improve this code to match your equipment and sound requirements.
 In the meantime, I will be actively working on implementing more features and fixing existing problems.
@@ -130,43 +123,47 @@ void HandleMidiMessage(MidiEvent m)
 							master_tune = 1.0f - ((float)p.value / 64.0f);
 							break;
 						}
-						case 2:
+						case 1:
 						{
 							vasynth.waveform_ = p.value >> 4;
 							vasynth.SetWaveform();
 							break;
 						}
-						case 3:
+						case 2:
 						{
 							vasynth.osc2_waveform_ = p.value >> 4;
 							vasynth.SetWaveform();
 							break;
 						}
-						case 4:
+						case 3:
 						{
 							vasynth.osc_mix_ = ((float)p.value / 127.0f);
 							break;
 						}
-						case 5:
+						case 4:
 						{
 							vasynth.osc2_detune_ = ((float)p.value / 127.0f);
 							break;
 						}
-						case 6:
+						case 5:
 						{
 							vasynth.osc2_transpose_ = (1.0f + ((float)p.value / 127.0f));
 							break;
 						}
-						case 7:
+						case 6:
 						{
 							vasynth.filter_res_ = ((float)p.value / 127.0f);
                     		vasynth.SetFilter();
 							break;
 						}
+						case 7:
+						{
+							vasynth.osc_pw_ = ((float)p.value / 255.0f);
+							break;
+						}
 						case 8:
 						{
-							vasynth.osc_pw_ = ((float)p.value / 127.0f);
-							vasynth.osc2_pw_ = ((float)p.value / 127.0f);
+							vasynth.osc2_pw_ = ((float)p.value / 255.0f);
 							break;
 						}
 						case 9:
@@ -231,6 +228,18 @@ void HandleMidiMessage(MidiEvent m)
 						{
 							vasynth.lfo_freq_ = ((float)p.value / 127.0f);
 							vasynth.SetLFO();
+							break;
+						}
+						case 22:
+						{
+							vasynth.pwmlfo_freq_ = ((float)p.value / 127.0f);
+							vasynth.SetPWMLFO();
+							break;
+						}
+						case 23:
+						{
+							vasynth.pwmlfo_amp_ = ((float)p.value / 255.0f);
+							vasynth.SetPWMLFO();
 							break;
 						}
 					}

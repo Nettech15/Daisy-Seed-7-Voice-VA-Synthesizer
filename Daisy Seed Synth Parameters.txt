@@ -5,14 +5,14 @@ Editable Parameters:
 Select Program Change 1 thru 29, then adjust the parameters value by moving the Data Slider.
 
  (1): // Master Tuning
- -(2): // VCF Envelope to VCA Switch
- (3): // Osc Select 1
- (4): // Osc Select 2
- (5): // OSC Mix
- (6): // De-Tune
- (7): // Scale
- (8): // Resonance
- (9): // Pulse Width Value
+ (2): // Oscillator 1 Waveform Select
+ (3): // Oscillator 2 Waveform Select
+ (4): // Oscillator (1/2) Mix
+ (5): // Oscillator 2 De-Tune
+ (6): // Oscillator 2 Scale
+ (7): // Resonance
+ (8): // Oscillator 1 Pulse Width Value
+ (9): // Oscillator 2 Pulse Width Value
  (10): // VCF Attack
  (11): // VCF Decay
  (12): // VCF Sustain
@@ -23,11 +23,11 @@ Select Program Change 1 thru 29, then adjust the parameters value by moving the 
  (17): // VCA Release
  -(18): // VCF Follow level
  -(19): // ENV Follow level
- (20): // Velocity Select
+ (20): // Velocity Routing Select
  (21): // VCF Envelope level
- (22): // Mod LFO rate
- -(23): // PWM LFO rate
- -(24): // PWM LFO Mod level
+ (22): // Mod Wheel LFO rate
+ (23): // PWM LFO rate
+ (24): // PWM LFO Mod level
  -(25): // PWM2 LFO rate
  -(26): // PWM2 LFO Mod level
  -(27): // VCF/VCA LFO rate

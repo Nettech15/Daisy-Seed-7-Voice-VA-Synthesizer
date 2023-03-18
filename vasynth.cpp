@@ -30,61 +30,71 @@ VASynthSetting preset_setting[PRESET_MAX] =
 		VASynth::WAVE_POLYBLEP_SAW, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
+		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_POLYBLEP_SAW, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//2
 		VASynth::WAVE_POLYBLEP_SQUARE, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
+		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_POLYBLEP_SQUARE, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//3
 		VASynth::WAVE_POLYBLEP_TRI, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
+		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_POLYBLEP_TRI, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//4
-		VASynth::WAVE_SAW, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
+		VASynth::WAVE_SIN, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
-		VASynth::WAVE_SAW, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_SIN, 0.2f, 0.2f,
+		VASynth::WAVE_SIN, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//5
-		VASynth::WAVE_SQUARE, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
+		VASynth::WAVE_POLYBLEP_SAW, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
-		VASynth::WAVE_SQUARE, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_SIN, 0.2f, 0.2f,
+		VASynth::WAVE_POLYBLEP_SAW, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//6
-		VASynth::WAVE_TRI, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
+		VASynth::WAVE_POLYBLEP_SQUARE, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
-		VASynth::WAVE_TRI, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_SIN, 0.2f, 0.2f,
+		VASynth::WAVE_POLYBLEP_SQUARE, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//7
-		VASynth::WAVE_RAMP, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
+		VASynth::WAVE_POLYBLEP_TRI, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
-		VASynth::WAVE_RAMP, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_SIN, 0.2f, 0.2f,
+		VASynth::WAVE_POLYBLEP_TRI, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//8
 		VASynth::WAVE_SIN, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
+		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_SIN, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//9
 		VASynth::WAVE_RAMP, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
+		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_RAMP, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//10
-		VASynth::WAVE_SIN, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
+		VASynth::WAVE_RAMP, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
-		VASynth::WAVE_SIN, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_SIN, 0.2f, 0.2f,
+		VASynth::WAVE_RAMP, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	}
 };
 
@@ -92,6 +102,7 @@ VASynthSetting preset_setting[PRESET_MAX] =
 waveform, osc_mix, detune, filter_res, filter_cutoff, filter envelope amount, osc_pw
 eg_a_attack, d, s, r, eg_f_attack, d, s, r,
 lfo_waveform, lfo_freq, lfo_amp,
+pwmlfo_waveform, pwmlfo_freq, pwmlfo_amp,
 osc2_waveform, osc2_detune, osc2_transpose, vel_select, midi_channel, osc2_pw;
 */
 
@@ -137,12 +148,16 @@ void VASynth::Init()
 	}
 
 	// lfo
-
 	lfo_.Init(sample_rate_);
 	lfo_.SetWaveform(lfo_waveform_);
 	lfo_.SetFreq(lfo_freq_);
 	lfo_.SetAmp(lfo_amp_);
 	
+	pwmlfo_.Init(sample_rate_);
+	pwmlfo_.SetWaveform(pwmlfo_waveform_);
+	pwmlfo_.SetFreq(pwmlfo_freq_);
+	pwmlfo_.SetAmp(pwmlfo_amp_);
+
 	//
 	delay_.Init();
 	delay_.SetDelay(sample_rate_ * 0.01f);
@@ -202,9 +217,17 @@ void VASynth::SetLFO()
 	lfo_.SetAmp(lfo_amp_);
 }
 
+void VASynth::SetPWMLFO()
+{
+	pwmlfo_.SetWaveform(pwmlfo_waveform_);
+	pwmlfo_.SetFreq(pwmlfo_freq_);
+	pwmlfo_.SetAmp(pwmlfo_amp_);
+}
+
 void VASynth::Process(float *out_l, float *out_r)
 {
 	float lfo_out;
+	float pwmlfo_out;
 	float env_a_out;
 	float env_f_out;
 	float osc_one;
@@ -220,6 +243,7 @@ void VASynth::Process(float *out_l, float *out_r)
 
 	// lfo + apply
 	lfo_out = lfo_.Process();
+	pwmlfo_out = pwmlfo_.Process();
 	
 	filter_out = 0;
 
@@ -262,10 +286,10 @@ void VASynth::Process(float *out_l, float *out_r)
 		bender = bender_offset[i] * pitch_bend;
 		osc_[i].SetFreq((note_freq_[i] + detune_ + bender + tuning) + (lfo_out * 20 * modadjust[i]));
 		osc2_[i].SetFreq((((note_freq_[i] * osc2_transpose_) + (bender * osc2_transpose_) + (tuning * osc2_transpose_)) + dtadjust[i] + detune_) + (lfo_out * 20 * modadjust[i]));
-		
+
 		// Set the pw, process both oscillators, then mix them
-		osc_[i].SetPw(osc_pw_);
-		osc2_[i].SetPw(osc2_pw_);
+		osc_[i].SetPw(osc_pw_ + pwmlfo_out);
+		osc2_[i].SetPw(osc2_pw_ + pwmlfo_out);
 
 		osc_one = osc_[i].Process();
 		osc_two = osc2_[i].Process();
@@ -294,12 +318,10 @@ void VASynth::Process(float *out_l, float *out_r)
 	voice_out = filter_out;
 
 	// delay
-	
 	delay_out = delay_.Read();
 	delay_.Write(voice_out);
 	
 	// out
-
 	*out_l = voice_out;
 	*out_r = delay_out;
 }
@@ -407,6 +429,10 @@ void VASynth::SaveToLive(VASynthSetting *vas)
 	lfo_freq_ = vas->lfo_freq;
 	lfo_amp_ = vas->lfo_amp;
 
+	pwmlfo_waveform_ = vas->pwmlfo_waveform;
+	pwmlfo_freq_ = vas->pwmlfo_freq;
+	pwmlfo_amp_ = vas->pwmlfo_amp;
+
 	osc2_waveform_ = vas->osc2_waveform;
 	osc2_detune_ = vas->osc2_detune;
 	osc2_transpose_ = vas->osc2_transpose;
@@ -443,6 +469,10 @@ void VASynth::LiveToSave(VASynthSetting *vas)
 	vas->lfo_waveform = lfo_waveform_;
 	vas->lfo_freq = lfo_freq_;
 	vas->lfo_amp = lfo_amp_;
+
+	vas->pwmlfo_waveform = pwmlfo_waveform_;
+	vas->pwmlfo_freq = pwmlfo_freq_;
+	vas->pwmlfo_amp = pwmlfo_amp_;
 
 	vas->osc2_waveform = osc2_waveform_;
 	vas->osc2_detune = osc2_detune_;
