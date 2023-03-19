@@ -91,7 +91,6 @@ class VASynth
 //private:
 
 	// config
-
 	float sample_rate_;
 	uint8_t waveform_;
 	float osc_mix_;
@@ -131,8 +130,7 @@ class VASynth
 	uint8_t note_midi_[VOICES_MAX];
 	float note_freq_[VOICES_MAX];
 
-	float dtadjust[VOICES_MAX] = {1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f};
-	float modadjust[VOICES_MAX] = {1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f};
+	float follow[VOICES_MAX] = {1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f};
 	float velocity[VOICES_MAX];
 	float bender_offset[VOICES_MAX];
 

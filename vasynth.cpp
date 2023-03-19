@@ -31,75 +31,75 @@ VASynthSetting preset_setting[PRESET_MAX] =
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_POLYBLEP_SAW, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_POLYBLEP_SAW, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//2
 		VASynth::WAVE_POLYBLEP_SQUARE, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_POLYBLEP_SQUARE, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_POLYBLEP_SQUARE, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//3
 		VASynth::WAVE_POLYBLEP_TRI, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_POLYBLEP_TRI, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_POLYBLEP_TRI, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//4
 		VASynth::WAVE_SIN, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_SIN, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_SIN, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//5
 		VASynth::WAVE_POLYBLEP_SAW, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_POLYBLEP_SAW, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_POLYBLEP_SAW, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//6
 		VASynth::WAVE_POLYBLEP_SQUARE, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_POLYBLEP_SQUARE, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_POLYBLEP_SQUARE, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//7
 		VASynth::WAVE_POLYBLEP_TRI, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_POLYBLEP_TRI, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_POLYBLEP_TRI, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//8
 		VASynth::WAVE_SIN, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_SIN, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_SIN, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//9
 		VASynth::WAVE_RAMP, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_RAMP, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_RAMP, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//10
 		VASynth::WAVE_RAMP, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_RAMP, 0.5f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_RAMP, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	}
 };
 
 /*
-waveform, osc_mix, detune, filter_res, filter_cutoff, filter envelope amount, osc_pw
+waveform, osc_mix, detune (unused), filter_res, filter_cutoff, filter envelope amount, osc_pw
 eg_a_attack, d, s, r, eg_f_attack, d, s, r,
 lfo_waveform, lfo_freq, lfo_amp,
 pwmlfo_waveform, pwmlfo_freq, pwmlfo_amp,
@@ -111,7 +111,6 @@ void VASynth::Init()
 	for (uint8_t i = 0; i < VOICES_MAX; i++)
 	{
 		// oscillator
-		
 		osc_[i].Init(sample_rate_);
 		osc_[i].SetWaveform(waveform_);
 		osc_[i].SetAmp(1.0f); // default
@@ -125,7 +124,6 @@ void VASynth::Init()
 		osc2_[i].SetPw(0.5f);
 		
 		// EG - amplitude
-		
 		eg_a_[i].Init(sample_rate_);
 		eg_a_[i].SetTime(ADSR_SEG_ATTACK, eg_a_attack_);
 		eg_a_[i].SetTime(ADSR_SEG_DECAY, eg_a_decay_);
@@ -133,15 +131,13 @@ void VASynth::Init()
 		eg_a_[i].SetSustainLevel(eg_a_sustain_);
 
 		// EG - filter
-		
 		eg_f_[i].Init(sample_rate_);
 		eg_f_[i].SetTime(ADSR_SEG_ATTACK, eg_f_attack_);
 		eg_f_[i].SetTime(ADSR_SEG_DECAY, eg_f_decay_);
 		eg_f_[i].SetTime(ADSR_SEG_RELEASE, eg_f_release_);
 		eg_f_[i].SetSustainLevel(eg_f_sustain_);
 
-		// filter
-
+		// LP - filter
 		flt[i].Init(sample_rate_);
 		flt[i].SetFreq(filter_cutoff_);
 		flt[i].SetRes(filter_res_);
@@ -158,7 +154,7 @@ void VASynth::Init()
 	pwmlfo_.SetFreq(pwmlfo_freq_);
 	pwmlfo_.SetAmp(pwmlfo_amp_);
 
-	//
+	// stereo simulator
 	delay_.Init();
 	delay_.SetDelay(sample_rate_ * 0.01f);
 
@@ -186,14 +182,12 @@ void VASynth::SetEG()
 	for (uint8_t i = 0; i < VOICES_MAX; i++)
 	{
 		// EG - filter
-		
 		eg_f_[i].SetTime(ADSR_SEG_ATTACK, eg_f_attack_);
 		eg_f_[i].SetTime(ADSR_SEG_DECAY, eg_f_decay_);
 		eg_f_[i].SetTime(ADSR_SEG_RELEASE, eg_f_release_);
 		eg_f_[i].SetSustainLevel(eg_f_sustain_);
 
 		// EG - amplitude
-		
 		eg_a_[i].SetTime(ADSR_SEG_ATTACK, eg_a_attack_);
 		eg_a_[i].SetTime(ADSR_SEG_DECAY, eg_a_decay_);
 		eg_a_[i].SetTime(ADSR_SEG_RELEASE, eg_a_release_);
@@ -238,10 +232,12 @@ void VASynth::Process(float *out_l, float *out_r)
 	float delay_out;
 	float bender;
 	float tuning;
+	float pitchmod;
+	float detune;
 
 	bool note_on;
 
-	// lfo + apply
+	// mod and pwm lfo's
 	lfo_out = lfo_.Process();
 	pwmlfo_out = pwmlfo_.Process();
 	
@@ -276,16 +272,16 @@ void VASynth::Process(float *out_l, float *out_r)
 			osc2_[i].SetAmp(env_a_out);
 		}
 
-		// Pitch modulation and osc2 detune
-		// This is an attempt to make osc2 detune and modulation wheel sound a little more exponential
-		modadjust[i] = (float (note_midi_[i])/42.0f);
-		dtadjust[i] = (osc2_detune_ * (modadjust[i]));
+		// Calculate keyboard follow for ENV and VCF
+		follow[i] = (float (note_midi_[i])/42.0f);
 
-		// Set osc + osc2 frequencies with pitch bend
+		// Set osc + osc2 frequencies with pitch bend, mod wheel, master tuning, and osc2 detune
 		tuning = bender_offset[i] * master_tune;
 		bender = bender_offset[i] * pitch_bend;
-		osc_[i].SetFreq((note_freq_[i] + detune_ + bender + tuning) + (lfo_out * 20 * modadjust[i]));
-		osc2_[i].SetFreq((((note_freq_[i] * osc2_transpose_) + (bender * osc2_transpose_) + (tuning * osc2_transpose_)) + dtadjust[i] + detune_) + (lfo_out * 20 * modadjust[i]));
+		pitchmod = bender_offset[i] * lfo_out;
+		detune = bender_offset[i] * osc2_detune_;
+		osc_[i].SetFreq((note_freq_[i] + detune_ + bender + tuning + pitchmod));
+		osc2_[i].SetFreq((((note_freq_[i] * osc2_transpose_) + (bender * osc2_transpose_) + (tuning * osc2_transpose_)) + (pitchmod * osc2_transpose_) + (detune * osc2_transpose_)));
 
 		// Set the pw, process both oscillators, then mix them
 		osc_[i].SetPw(osc_pw_ + pwmlfo_out);

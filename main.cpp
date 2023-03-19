@@ -142,7 +142,7 @@ void HandleMidiMessage(MidiEvent m)
 						}
 						case 4:
 						{
-							vasynth.osc2_detune_ = ((float)p.value / 127.0f);
+							vasynth.osc2_detune_ = ((float)p.value / 255.0f);
 							break;
 						}
 						case 5:
