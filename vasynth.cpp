@@ -31,70 +31,70 @@ VASynthSetting preset_setting[PRESET_MAX] =
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_POLYBLEP_SAW, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_POLYBLEP_SAW, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//2
 		VASynth::WAVE_POLYBLEP_SQUARE, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_POLYBLEP_SQUARE, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_POLYBLEP_SQUARE, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//3
 		VASynth::WAVE_POLYBLEP_TRI, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_POLYBLEP_TRI, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_POLYBLEP_TRI, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//4
 		VASynth::WAVE_SIN, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_SIN, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_SIN, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//5
 		VASynth::WAVE_POLYBLEP_SAW, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_POLYBLEP_SAW, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_POLYBLEP_SAW, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//6
 		VASynth::WAVE_POLYBLEP_SQUARE, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_POLYBLEP_SQUARE, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_POLYBLEP_SQUARE, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//7
 		VASynth::WAVE_POLYBLEP_TRI, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_POLYBLEP_TRI, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_POLYBLEP_TRI, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//8
 		VASynth::WAVE_SIN, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_SIN, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_SIN, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//9
 		VASynth::WAVE_RAMP, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_RAMP, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_RAMP, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	},
 	{//10
 		VASynth::WAVE_RAMP, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_RAMP, 0.1f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		VASynth::WAVE_RAMP, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
 	}
 };
 
