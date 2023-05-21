@@ -30,8 +30,8 @@ Select Program Change 1 thru 29, then adjust the parameters value by moving the 
  (24): // PWM LFO Mod level
  -(25): // PWM2 LFO rate
  -(26): // PWM2 LFO Mod level
- -(27): // VCF/VCA LFO rate
- -(28): // VCF LFO Mod level
+ (27): // VCF/VCA LFO rate
+ (28): // VCF LFO Mod level
  -(29): // VCA LFO Mod level
 
 Select Program Change 30 thru 39 to choose a preset patch.

@@ -6,17 +6,26 @@ Synth parameters are now controlled by a Miditech i2-61 midi keyboard.
 Multiple Daisy Seeds will appear as USB-MIDI devices with the name "Daisy Seed Built in" and the device number.
 Audio output/input is thru the built-in audio codec.
 
-+ Added Master Tuning, Pitch Bend Wheel, and Pitch Modulation Wheel
-+ Upgraded DaisySP with more efficient MoogLadder code.
-+ Added PW/PWM square waves.
-+ Added Param Switch and Data Entry Slider. 
-+ Added QSPI storage for ten user patches. Made ten selectable presets.
-+ Added Audio Input PassThru and MIDI indicator. 
-+ Added USB-MIDI input.
-+ Added Stereo Simulator. 
-+ Added Moogladder filter. 
-+ Added Dynamic Voice Allocation. 
-+ Added keyboard velocity control to VCA and VCF.
+Specifications:
+
+- 8 voice polyphonic.
+- Dual oscillator per voice.
+- VCA per voice. 
+- VCF (4-pole Resonant low-pass) per voice.
+- Separate ADSR's for VCA and VCF
+- MIDI Editable parameters. 
+- Ten Preset Patches.
+- Ten User-Programmable Patches using QSPI Flash memory storage.
+- Waveform select for both oscillators; Sine/Triangle/Saw/Square/Ramp/Polyblep-Tri/Polyblep-Saw/Polyblep-Square
+- Oscillator (1/2) mix. 
+- Oscillator 2 De-tune. 
+- Scale for Oscillator 2. 
+- LFO for Pitch Modulation Wheel.
+- LFO for Pulse Width Modulation.
+- LFO for VCF Modulation.
+- Keyboard velocity routable to VCA and/or VCF. 
+- VCF envelope level. 
+- Stereo simulation effect.
 
 Feel free to copy, modify, and improve this code to match your equipment and sound requirements.
 In the meantime, I will be actively working on implementing more features and fixing existing problems.
@@ -240,6 +249,30 @@ void HandleMidiMessage(MidiEvent m)
 						{
 							vasynth.pwmlfo_amp_ = ((float)p.value / 255.0f);
 							vasynth.SetPWMLFO();
+							break;
+						}
+						case 24:
+						{
+							break;
+						}
+						case 25:
+						{
+							break;
+						}
+						case 26:
+						{
+							vasynth.vcflfo_freq_ = ((float)p.value / 127.0f);
+							vasynth.SetVCFLFO();
+							break;
+						}
+						case 27:
+						{
+							vasynth.vcflfo_amp_ = ((float)p.value / 127.0f);
+							vasynth.SetVCFLFO();
+							break;
+						}
+						case 28:
+						{
 							break;
 						}
 					}
