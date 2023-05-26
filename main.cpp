@@ -23,6 +23,7 @@ Specifications:
 - LFO for Pitch Modulation Wheel.
 - LFO for Pulse Width Modulation.
 - LFO for VCF Modulation.
+- LFO for VCA Modulation.
 - Keyboard velocity routable to VCA and/or VCF. 
 - VCF envelope level. 
 - Stereo simulation effect.
@@ -223,6 +224,14 @@ void HandleMidiMessage(MidiEvent m)
 							vasynth.SetEG();
 							break;
 						}
+						case 17:
+						{
+							break;
+						}
+						case 18:
+						{
+							break;
+						}
 						case 19:
 						{
 							vasynth.vel_select_ = p.value >> 5;
@@ -253,10 +262,14 @@ void HandleMidiMessage(MidiEvent m)
 						}
 						case 24:
 						{
+							vasynth.vcalfo_freq_ = ((float)p.value / 127.0f);
+							vasynth.SetVCALFO();
 							break;
 						}
 						case 25:
 						{
+							vasynth.vcalfo_amp_ = ((float)p.value / 127.0f);
+							vasynth.SetVCALFO();
 							break;
 						}
 						case 26:
@@ -273,6 +286,10 @@ void HandleMidiMessage(MidiEvent m)
 						}
 						case 28:
 						{
+							vasynth.vcalfo_waveform_ = p.value >> 4;
+							vasynth.vcflfo_waveform_ = p.value >> 4;
+							vasynth.SetVCALFO();
+							vasynth.SetVCFLFO();
 							break;
 						}
 					}

@@ -1,7 +1,5 @@
 Editable Parameters:
 
-(Parameters marked with a "-" have not been implemented yet, but are planned for the near future.)
-
 Select Program Change 1 thru 29, then adjust the parameters value by moving the Data Slider.
 
  (1): // Master Tuning
@@ -28,11 +26,11 @@ Select Program Change 1 thru 29, then adjust the parameters value by moving the 
  (22): // Mod Wheel LFO rate
  (23): // PWM LFO rate
  (24): // PWM LFO Mod level
- -(25): // VCA LFO rate
- -(26): // VCA LFO Mod level
+ (25): // VCA LFO rate
+ (26): // VCA LFO Mod level
  (27): // VCF LFO rate
  (28): // VCF LFO Mod level
- -(29): // VCA/VCF LFO Waveform Select
+ (29): // VCA/VCF LFO Waveform Select
 
 Select Program Change 30 thru 39 to choose a preset patch.
 

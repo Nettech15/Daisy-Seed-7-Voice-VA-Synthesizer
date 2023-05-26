@@ -27,6 +27,7 @@ Specifications:
 - LFO for Pitch Modulation Wheel.
 - LFO for Pulse Width Modulation.
 - LFO for VCF Modulation.
+- LFO for VCA Modulation.
 - Keyboard velocity routable to VCA and/or VCF. 
 - VCF envelope level. 
 - Stereo simulation effect.
