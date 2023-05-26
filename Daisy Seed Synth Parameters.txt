@@ -1,6 +1,7 @@
 Editable Parameters:
 
-Select Program Change 1 thru 29, then adjust the parameters value by moving the Data Slider.
+Select Program Change 1 thru 29, then adjust the parameters value by moving the
+ Data Slider (Volume = CC#7).
 
  (1): // Master Tuning
  (2): // Oscillator 1 Waveform Select
