@@ -239,7 +239,7 @@ void VASynth::SetFilter()
 void VASynth::SetLFO()
 {
 	lfo_.SetWaveform(lfo_waveform_);
-	lfo_.SetFreq(lfo_freq_ * 8);
+	lfo_.SetFreq(lfo_freq_ * 8.0f);
 	lfo_.SetAmp(lfo_amp_);
 }
 
@@ -253,14 +253,14 @@ void VASynth::SetPWMLFO()
 void VASynth::SetVCFLFO()
 {
 	vcflfo_.SetWaveform(vcflfo_waveform_);
-	vcflfo_.SetFreq(vcflfo_freq_ * 8);
+	vcflfo_.SetFreq(vcflfo_freq_ * 8.0f);
 	vcflfo_.SetAmp(vcflfo_amp_);
 }
 
 void VASynth::SetVCALFO()
 {
 	vcalfo_.SetWaveform(vcalfo_waveform_);
-	vcalfo_.SetFreq(vcalfo_freq_ * 8);
+	vcalfo_.SetFreq(vcalfo_freq_ * 8.0f);
 	vcalfo_.SetAmp(vcalfo_amp_);
 }
 
