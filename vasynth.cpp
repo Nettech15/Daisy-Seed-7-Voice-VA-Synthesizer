@@ -497,6 +497,7 @@ void VASynth::SaveToLive(VASynthSetting *vas)
 
 	osc_next_ = 0;
 	Init();
+	
 	gPlay = PLAY_ON;
 }
 
