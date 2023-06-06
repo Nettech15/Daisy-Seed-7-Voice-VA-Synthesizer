@@ -20,8 +20,8 @@ Data Slider (Volume = CC#7).
  (15): // VCA Decay
  (16): // VCA Sustain
  (17): // VCA Release
- -(18): // VCF Follow level
- -(19): // ENV Follow level
+ (18): // VCF Follow level
+ (19): // ENV Follow level
  (20): // Velocity Routing Select
  (21): // VCF Envelope level
  (22): // Mod Wheel LFO rate

@@ -329,13 +329,19 @@ void VASynth::Process(float *out_l, float *out_r)
 	{
 		note_on = (note_midi_[i] != 0);
 
+		// Calculate keyboard follow value for the VCF and ENV on active notes
+		if(note_on)
+		{
+			follow[i] = 1.0f - (float (note_midi_[i])/84.0f);	
+		}
+
 		// EG - AMP
 		env_a_out = eg_a_[i].Process(note_on);
 
 		if(vel_select_ >= 2)
 		{
 			// Enable velocity control of the VCA on osc
-			osc_[i].SetAmp(env_a_out * velocity[i] * (1 + vcalfo_out));
+			osc_[i].SetAmp(env_a_out * velocity[i] * (1.0f + vcalfo_out));
 		}
 		else
 		{
@@ -373,12 +379,6 @@ void VASynth::Process(float *out_l, float *out_r)
 
 		// filter		
 		env_f_out = eg_f_[i].Process(note_on);
-
-		// Calculate keyboard follow value for the VCF and ENV on active notes
-		if(note_on)
-		{
-			follow[i] = 1.0f - (float (note_midi_[i])/84.0f);
-		}
 
 		if(vel_select_ == 1 || vel_select_ == 3)
 		{

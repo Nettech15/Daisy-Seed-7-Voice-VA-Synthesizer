@@ -154,7 +154,7 @@ class VASynth
 	uint8_t note_midi_[VOICES_MAX];
 	float note_freq_[VOICES_MAX];
 
-	float follow[VOICES_MAX] = {1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f};
+	float follow[VOICES_MAX];
 	float velocity[VOICES_MAX];
 	float bender_offset[VOICES_MAX];
 
