@@ -19,11 +19,12 @@ typedef struct
 	uint8_t waveform;
 	float osc_mix;
 	float detune;
-	
-	float filter_res;
-	float filter_cutoff;
-	float eg_f_amount;
 	float osc_pw;
+
+	uint8_t osc2_waveform;
+	float osc2_detune;
+	float osc2_transpose;
+	float osc2_pw;
 	
 	float eg_a_attack;
 	float eg_a_decay;
@@ -49,14 +50,15 @@ typedef struct
 	uint8_t vcalfo_waveform;
 	float vcalfo_freq;
 	float vcalfo_amp;
-
-	uint8_t osc2_waveform;
-	float osc2_detune;
-	float osc2_transpose;
-	uint8_t vel_select;
 	
+	float vcf_kbd_follow;
+	float env_kbd_follow;
+
+	float filter_res;
+	float filter_cutoff;
+	float eg_f_amount;
+	uint8_t vel_select;
 	uint8_t midi_channel;
-	float osc2_pw;
 } VASynthSetting;
 
 class VASynth
@@ -102,12 +104,16 @@ class VASynth
 
 	// config
 	float sample_rate_;
+
 	uint8_t waveform_;
 	float osc_mix_;
 	float detune_;
-	float filter_res_;
-	float filter_cutoff_;
 	float osc_pw_;
+
+	uint8_t osc2_waveform_;
+	float osc2_detune_;
+	float osc2_transpose_;
+	float osc2_pw_;
 
 	float eg_a_attack_;
 	float eg_a_decay_;
@@ -115,7 +121,6 @@ class VASynth
 	float eg_a_release_;
 	float eg_f_attack_;
 	float eg_f_decay_;
-	float eg_f_amount_;
 	float eg_f_sustain_; // level
 	float eg_f_release_;
 
@@ -134,14 +139,15 @@ class VASynth
 	uint8_t vcalfo_waveform_;
 	float vcalfo_freq_;
 	float vcalfo_amp_;
-
-	uint8_t osc2_waveform_;
-	float osc2_detune_;
-	float osc2_transpose_;
-	uint8_t vel_select_;
 	
+	float vcf_kbd_follow_;
+	float env_kbd_follow_;
+
+	float filter_res_;
+	float filter_cutoff_;
+	float eg_f_amount_;
+	uint8_t vel_select_;
 	uint8_t midi_channel_;
-	float osc2_pw_;
 	
 	// runtime	
 	uint8_t osc_next_;

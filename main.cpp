@@ -24,6 +24,8 @@ Specifications:
 - LFO for Pulse Width Modulation.
 - LFO for VCF Modulation.
 - LFO for VCA Modulation.
+- Waveform select for VCF/VCA LFO.
+- Keyboard follow for VCF.
 - Keyboard velocity routable to VCA and/or VCF. 
 - VCF envelope level. 
 - Stereo simulation effect.
@@ -226,10 +228,12 @@ void HandleMidiMessage(MidiEvent m)
 						}
 						case 17:
 						{
+							vasynth.vcf_kbd_follow_= ((float)p.value / 127.0f);
 							break;
 						}
 						case 18:
 						{
+							vasynth.env_kbd_follow_ = ((float)p.value / 127.0f);
 							break;
 						}
 						case 19:

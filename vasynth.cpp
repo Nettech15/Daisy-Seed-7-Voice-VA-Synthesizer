@@ -27,105 +27,137 @@ uint8_t preset_number = 0;
 VASynthSetting preset_setting[PRESET_MAX] = 
 {
 	{//1
-		VASynth::WAVE_POLYBLEP_SAW, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
+		VASynth::WAVE_POLYBLEP_SAW, 0.5f, 0.0f, 0.5f,
+		VASynth::WAVE_POLYBLEP_SAW, 0.06f, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
-		VASynth::WAVE_POLYBLEP_SAW, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		0.0f, 0.0f,
+		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	},
 	{//2
-		VASynth::WAVE_POLYBLEP_SQUARE, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
-		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
+		VASynth::WAVE_POLYBLEP_SQUARE, 0.5f, 0.0f, 0.5f,
+		VASynth::WAVE_POLYBLEP_SQUARE, 0.06f, 1.0f, 0.5f,
+		0.0f, 0.4f, 1.0f, 0.1f,
+		0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
-		VASynth::WAVE_POLYBLEP_SQUARE, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		0.0f, 0.0f,
+		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	},
 	{//3
-		VASynth::WAVE_POLYBLEP_TRI, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
-		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
+		VASynth::WAVE_POLYBLEP_TRI, 0.5f, 0.0f, 0.5f,
+		VASynth::WAVE_POLYBLEP_TRI, 0.06f, 1.0f, 0.5f,
+		0.0f, 0.4f, 1.0f, 0.1f,
+		0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
-		VASynth::WAVE_POLYBLEP_TRI, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		0.0f, 0.0f,
+		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	},
 	{//4
-		VASynth::WAVE_SIN, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
-		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
+		VASynth::WAVE_SIN, 0.5f, 0.0f, 0.5f,
+		VASynth::WAVE_SIN, 0.06f, 1.0f, 0.5f,
+		0.0f, 0.4f, 1.0f, 0.1f,
+		0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
-		VASynth::WAVE_SIN, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		0.0f, 0.0f,
+		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	},
 	{//5
-		VASynth::WAVE_POLYBLEP_SAW, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
-		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
+		VASynth::WAVE_POLYBLEP_SAW, 0.5f, 0.0f, 0.5f,
+		VASynth::WAVE_POLYBLEP_SAW, 0.06f, 1.0f, 0.5f,
+		0.0f, 0.4f, 1.0f, 0.1f,
+		0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
-		VASynth::WAVE_POLYBLEP_SAW, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		0.0f, 0.0f,
+		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	},
 	{//6
-		VASynth::WAVE_POLYBLEP_SQUARE, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
-		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
+		VASynth::WAVE_POLYBLEP_SQUARE, 0.5f, 0.0f, 0.5f,
+		VASynth::WAVE_POLYBLEP_SQUARE, 0.06f, 1.0f, 0.5f,
+		0.0f, 0.4f, 1.0f, 0.1f,
+		0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
-		VASynth::WAVE_POLYBLEP_SQUARE, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		0.0f, 0.0f,
+		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	},
 	{//7
-		VASynth::WAVE_POLYBLEP_TRI, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
-		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
+		VASynth::WAVE_POLYBLEP_TRI, 0.5f, 0.0f, 0.5f,
+		VASynth::WAVE_POLYBLEP_TRI, 0.06f, 1.0f, 0.5f,
+		0.0f, 0.4f, 1.0f, 0.1f,
+		0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
-		VASynth::WAVE_POLYBLEP_TRI, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		0.0f, 0.0f,
+		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	},
 	{//8
-		VASynth::WAVE_SIN, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
-		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
+		VASynth::WAVE_SIN, 0.5f, 0.0f, 0.5f,
+		VASynth::WAVE_SIN, 0.06f, 1.0f, 0.5f,
+		0.0f, 0.4f, 1.0f, 0.1f,
+		0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
-		VASynth::WAVE_SIN, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		0.0f, 0.0f,
+		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	},
 	{//9
-		VASynth::WAVE_RAMP, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
-		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
+		VASynth::WAVE_RAMP, 0.5f, 0.0f, 0.5f,
+		VASynth::WAVE_RAMP, 0.06f, 1.0f, 0.5f,
+		0.0f, 0.4f, 1.0f, 0.1f,
+		0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
-		VASynth::WAVE_RAMP, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		0.0f, 0.0f,
+		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	},
 	{//10
-		VASynth::WAVE_RAMP, 0.5f, 0.0f, 0.2f, FILTER_CUTOFF_MAX, 1.0f, 0.5f,
-		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
+		VASynth::WAVE_RAMP, 0.5f, 0.0f, 0.5f,
+		VASynth::WAVE_RAMP, 0.06f, 1.0f, 0.5f,
+		0.0f, 0.4f, 1.0f, 0.1f,
+		0.0f, 0.4f, 0.2f, 0.1f,
 		VASynth::WAVE_SIN, 0.5f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.2f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
 		VASynth::WAVE_SIN, 0.2f, 0.0f,
-		VASynth::WAVE_RAMP, 0.06f, 1.0f, 1, MIDI_CHANNEL_ONE, 0.5f
+		0.0f, 0.0f,
+		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	}
 };
 
 /*
-osc_waveform, osc_mix, detune (unused), filter_res, filter_cutoff, filter envelope amount, osc_pw
-eg_a_attack, d, s, r, eg_f_attack, d, s, r,
+osc_waveform, osc_mix, detune, osc_pw,
+osc2_waveform, osc2_detune, osc2_transpose, osc2_pw,
+eg_a_attack, d, s, r,
+eg_f_attack, d, s, r,
 lfo_waveform, lfo_freq, lfo_amp,
 pwmlfo_waveform, pwmlfo_freq, pwmlfo_amp,
 vcflfo_waveform, vcflfo_freq, vcflfo_amp,
 vcalfo_waveform, vcalfo_freq, vcalfo_amp,
-osc2_waveform, osc2_detune, osc2_transpose, vel_select, midi_channel, osc2_pw;
+vcf_kbd_follow, env_kbd_follow,
+filter_res, filter_cutoff, eg_f_amount, vel_select, midi_channel;
 */
 
 void VASynth::Init()
@@ -308,22 +340,19 @@ void VASynth::Process(float *out_l, float *out_r)
 		else
 		{
 			// Disable velocity control of the VCA on osc
-			osc_[i].SetAmp(env_a_out * (1 + vcalfo_out));
+			osc_[i].SetAmp(env_a_out * (1.0f + vcalfo_out));
 		}
 
 		if(vel_select_ >= 2)
 		{
 			// Enable velocity control of the VCA on osc2
-			osc2_[i].SetAmp(env_a_out * velocity[i] * (1 + vcalfo_out));
+			osc2_[i].SetAmp(env_a_out * velocity[i] * (1.0f + vcalfo_out));
 		}
 		else
 		{
 			// Disable velocity control of the VCA on osc2
-			osc2_[i].SetAmp(env_a_out * (1 + vcalfo_out));
+			osc2_[i].SetAmp(env_a_out * (1.0f + vcalfo_out));
 		}
-
-		// Calculate keyboard follow value for ENV and VCF
-		follow[i] = (float (note_midi_[i])/42.0f);
 
 		// Set osc + osc2 frequencies with pitch bend, mod wheel, master tuning, and osc2 detune
 		tuning = bender_offset[i] * master_tune;
@@ -345,16 +374,22 @@ void VASynth::Process(float *out_l, float *out_r)
 		// filter		
 		env_f_out = eg_f_[i].Process(note_on);
 
+		// Calculate keyboard follow value for the VCF and ENV on active notes
+		if(note_on)
+		{
+			follow[i] = 1.0f - (float (note_midi_[i])/84.0f);
+		}
+
 		if(vel_select_ == 1 || vel_select_ == 3)
 		{
-			// Enable velocity control of the VCF 
-			flt[i].SetFreq(filter_cutoff_ * (env_f_out * velocity[i] * eg_f_amount_) * (1 + vcflfo_out));
+			// Enable velocity control of the VCF summed with vcflfo and vcf_kbd_follow
+			flt[i].SetFreq(filter_cutoff_ * (env_f_out * velocity[i] * eg_f_amount_) * (1.0f + vcflfo_out) * (1.0f - ((vcf_kbd_follow_ * follow[i]))));
 		}
 		else
 		{
-			// Disable velocity control of the VCF
-			flt[i].SetFreq(filter_cutoff_ * (env_f_out * eg_f_amount_) * (1 + vcflfo_out));
-		}
+			// Disable velocity control of the VCF summed with vcflfo and vcf_kbd_follow
+			flt[i].SetFreq(filter_cutoff_ * (env_f_out * eg_f_amount_) * (1.0f + vcflfo_out) * (1.0f - ((vcf_kbd_follow_ * follow[i]))));
+		}	
 		
 		filter_out += flt[i].Process(osc_out);
 	}
@@ -456,11 +491,12 @@ void VASynth::SaveToLive(VASynthSetting *vas)
 	waveform_ = vas->waveform;
 	osc_mix_ = vas->osc_mix;
 	detune_ = vas->detune;
-
-	filter_res_ = vas->filter_res;
-	filter_cutoff_ = vas->filter_cutoff;
-	eg_f_amount_ = vas->eg_f_amount;
 	osc_pw_ = vas->osc_pw;
+
+	osc2_waveform_ = vas->osc2_waveform;
+	osc2_detune_ = vas->osc2_detune;
+	osc2_transpose_ = vas->osc2_transpose;
+	osc2_pw_ = vas->osc2_pw;
 	
 	eg_a_attack_ = vas->eg_a_attack;
 	eg_a_decay_ = vas->eg_a_decay;
@@ -486,14 +522,12 @@ void VASynth::SaveToLive(VASynthSetting *vas)
 	vcalfo_waveform_ = vas->vcalfo_waveform;
 	vcalfo_freq_ = vas->vcalfo_freq;
 	vcalfo_amp_ = vas->vcalfo_amp;
-
-	osc2_waveform_ = vas->osc2_waveform;
-	osc2_detune_ = vas->osc2_detune;
-	osc2_transpose_ = vas->osc2_transpose;
-	vel_select_ = vas->vel_select;
 	
+	filter_res_ = vas->filter_res;
+	filter_cutoff_ = vas->filter_cutoff;
+	eg_f_amount_ = vas->eg_f_amount;
+	vel_select_ = vas->vel_select;
 	midi_channel_ = vas->midi_channel;
-	osc2_pw_ = vas->osc2_pw;
 
 	osc_next_ = 0;
 	Init();
@@ -506,11 +540,12 @@ void VASynth::LiveToSave(VASynthSetting *vas)
 	vas->waveform = waveform_;
 	vas->osc_mix = osc_mix_;
 	vas->detune = detune_;
-
-	vas->filter_res = filter_res_;
-	vas->filter_cutoff = filter_cutoff_;
-	vas->eg_f_amount = eg_f_amount_;
 	vas->osc_pw = osc_pw_;
+
+	vas->osc2_waveform = osc2_waveform_;
+	vas->osc2_detune = osc2_detune_;
+	vas->osc2_transpose = osc2_transpose_;
+	vas->osc2_pw = osc2_pw_;
 	
 	vas->eg_a_attack = eg_a_attack_;
 	vas->eg_a_decay = eg_a_decay_;
@@ -536,12 +571,10 @@ void VASynth::LiveToSave(VASynthSetting *vas)
 	vas->vcalfo_waveform = vcalfo_waveform_;
 	vas->vcalfo_freq = vcalfo_freq_;
 	vas->vcalfo_amp = vcalfo_amp_;
-
-	vas->osc2_waveform = osc2_waveform_;
-	vas->osc2_detune = osc2_detune_;
-	vas->osc2_transpose = osc2_transpose_;
-	vas->vel_select = vel_select_;
 	
+	vas->filter_res = filter_res_;
+	vas->filter_cutoff = filter_cutoff_;
+	vas->eg_f_amount = eg_f_amount_;
+	vas->vel_select = vel_select_;
 	vas->midi_channel = midi_channel_;
-	vas->osc2_pw = osc2_pw_;
 }

@@ -28,6 +28,8 @@ Specifications:
 - LFO for Pulse Width Modulation.
 - LFO for VCF Modulation.
 - LFO for VCA Modulation.
+- Waveform select for VCF/VCA LFO.
+- Keyboard follow for VCF.
 - Keyboard velocity routable to VCA and/or VCF. 
 - VCF envelope level. 
 - Stereo simulation effect.
