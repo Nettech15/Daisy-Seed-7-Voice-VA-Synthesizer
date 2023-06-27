@@ -33,19 +33,12 @@ Data Slider (Volume = CC#7).
  (28): // VCF LFO Mod level
  (29): // VCA/VCF LFO Waveform Select
 
-Select Program Change 30 thru 39 to choose a preset patch.
+Select Program Change 36 thru 39 to change the Sequencer's mode.
+ (36): // Sequencer Record
+ (37): // Sequencer Record End
+ (38): // Sequencer Stop
+ (39): // Sequencer Play
 
- (30): // Preset Select #1
- (31): // Preset Select #2
- (32): // Preset Select #3
- (33): // Preset Select #4
- (34): // Preset Select #5
- (35): // Preset Select #6
- (36): // Preset Select #7
- (37): // Preset Select #8
- (38): // Preset Select #9
- (39): // Preset Select #10
-  
 Select Program Change 40 thru 49 to load a user patch.
 
  (40): // User Patch Select #1

@@ -2,6 +2,9 @@
 
 #include "daisysp.h"
 
+// Set sequencer memory to SRAM
+#define WRITE_READ_SRAM_ADDR 0x20000000
+
 // settings
 #define WAVEFORMS_MAX 8
 #define VOICES_MAX 8

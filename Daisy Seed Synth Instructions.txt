@@ -11,4 +11,4 @@ How to use the Daisy Seed 8-Voice VA Synthesizer:
 - Select "Daisy Seed Built In" as your MIDI Output device.
 - If more than one Daisy Seed board is connected, it will appear as device "Daisy Seed Built In #X". Select its board number.
 - The default patch loaded on startup is a PolySynth sound.
-- Follow the instructions in "Daisy Seed Synth Parameters.txt" to select presets, modify parameters, and store new patches.
+- Follow the instructions in "Daisy Seed Synth Parameters.txt" to modify parameters, and store user patches.

@@ -91,8 +91,8 @@ class VASynth
 	void SetVCFLFO();
 	void SetVCALFO();
 	void Process(float *, float *);
-	void NoteOn(uint8_t midi_note, uint8_t midi_velocity = MIDI_VELOCITY_MAX);
-	void NoteOff(uint8_t midi_note);
+	void NoteOn(uint8_t, uint8_t);
+	void NoteOff(uint8_t);
 	void FlashLoad(uint8_t aSlot);
 	void FlashSave(uint8_t aSlot);
 	void ProgramChange(uint8_t data);
@@ -149,7 +149,7 @@ class VASynth
 	uint8_t vel_select_;
 	uint8_t midi_channel_;
 	
-	// runtime	
+	// runtime
 	uint8_t osc_next_;
 	uint8_t note_midi_[VOICES_MAX];
 	float note_freq_[VOICES_MAX];

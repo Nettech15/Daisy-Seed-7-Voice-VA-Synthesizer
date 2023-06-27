@@ -18,7 +18,6 @@ Specifications:
 - VCF (4-pole Resonant low-pass) per voice.
 - Separate ADSR's for VCA and VCF
 - MIDI Editable parameters. 
-- Ten Preset Patches.
 - Ten User-Programmable Patches using QSPI Flash memory storage.
 - Waveform select for both oscillators; Sine/Triangle/Saw/Square/Ramp/Polyblep-Tri/Polyblep-Saw/Polyblep-Square
 - Oscillator (1/2) mix. 
@@ -33,3 +32,4 @@ Specifications:
 - Keyboard velocity routable to VCA and/or VCF. 
 - VCF envelope level. 
 - Stereo simulation effect.
+- Single-Track ScratchPad Sequencer.
