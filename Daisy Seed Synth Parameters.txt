@@ -34,6 +34,7 @@ Data Slider (Volume = CC#7).
  (29): // VCA/VCF LFO Waveform Select
 
 Select Program Change 36 thru 39 to change the Sequencer's mode.
+
  (36): // Sequencer Record
  (37): // Sequencer Record End
  (38): // Sequencer Stop
