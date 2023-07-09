@@ -4,14 +4,14 @@ Select Program Change 1 thru 29, then adjust the parameters value by moving the
 Data Slider (Volume = CC#7).
 
  (1): // Master Tuning
- (2): // Oscillator 1 Waveform Select
- (3): // Oscillator 2 Waveform Select
- (4): // Oscillator (1/2) Mix
- (5): // Oscillator 2 De-Tune
- (6): // Oscillator 2 Scale
+ (2): // Oscillator #1 Waveform Select
+ (3): // Oscillator #2 Waveform Select
+ (4): // Oscillator Mix
+ (5): // Oscillator #2 De-Tune
+ (6): // Oscillator #2 Scale
  (7): // Resonance
- (8): // Oscillator 1 Pulse Width Value
- (9): // Oscillator 2 Pulse Width Value
+ (8): // Oscillator #1 Pulse Width Value
+ (9): // Oscillator #2 Pulse Width Value
  (10): // VCF Attack
  (11): // VCF Decay
  (12): // VCF Sustain
@@ -20,17 +20,17 @@ Data Slider (Volume = CC#7).
  (15): // VCA Decay
  (16): // VCA Sustain
  (17): // VCA Release
- (18): // VCF Follow level
- (19): // ENV Follow level
+ (18): // VCF Key Follow level
+ (19): // ENV Key Follow level
  (20): // Velocity Routing Select
  (21): // VCF Envelope level
  (22): // Mod Wheel LFO rate
  (23): // PWM LFO rate
  (24): // PWM LFO Mod level
- (25): // VCA LFO rate
- (26): // VCA LFO Mod level
- (27): // VCF LFO rate
- (28): // VCF LFO Mod level
+ (25): // PWM2 LFO rate
+ (26): // PWM2 LFO Mod level
+ (27): // VCA/VCF LFO rate
+ (28): // VCA/VCF LFO Mod level
  (29): // VCA/VCF LFO Waveform Select
 
 Select Program Change 36 thru 39 to change the Sequencer's mode.

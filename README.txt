@@ -20,13 +20,13 @@ Specifications:
 - MIDI Editable parameters. 
 - Ten User-Programmable Patches using QSPI Flash memory storage.
 - Waveform select for both oscillators; Sine/Triangle/Saw/Square/Ramp/Polyblep-Tri/Polyblep-Saw/Polyblep-Square
-- Oscillator (1/2) mix. 
-- Oscillator 2 De-tune. 
-- Scale for Oscillator 2. 
+- Oscillator Mix. 
+- Oscillator #2 De-tune. 
+- Scale for Oscillator #2. 
 - LFO for Pitch Modulation Wheel.
-- LFO for Pulse Width Modulation.
-- LFO for VCF Modulation.
-- LFO for VCA Modulation.
+- LFO for Pulse Width Modulation #1.
+- LFO for Pulse Width Modulation #2.
+- LFO for VCA/VCF Modulation.
 - Waveform select for VCF/VCA LFO.
 - Keyboard follow for VCF.
 - Keyboard velocity routable to VCA and/or VCF. 

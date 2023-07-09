@@ -20,9 +20,9 @@ Specifications:
 - Oscillator 2 De-tune. 
 - Scale for Oscillator 2. 
 - LFO for Pitch Modulation Wheel.
-- LFO for Pulse Width Modulation.
-- LFO for VCF Modulation.
-- LFO for VCA Modulation.
+- LFO for Pulse Width Modulation #1.
+- LFO for Pulse Width Modulation #2.
+- LFO for VCA/VCF Modulation.
 - Waveform select for VCF/VCA LFO.
 - Keyboard follow for VCF.
 - Keyboard velocity routable to VCA and/or VCF. 
@@ -84,8 +84,8 @@ void AudioCallback(AudioHandle::InterleavingInputBuffer  in,
 		{			
 			vasynth.Process(&voice_left, &voice_right);
 			
-			out[n] = voice_left + in[n];;
-			out[n + 1] = voice_right + in[n + 1];;	
+			out[n] = voice_left + in[n];
+			out[n + 1] = voice_right + in[n + 1];	
 		} 
 		else 
 		{
@@ -279,40 +279,38 @@ void HandleMidiMessage(MidiEvent m)
 						}
 						case 23:
 						{
-							vasynth.pwmlfo_amp_ = ((float)p.value / 255.0f);
+							vasynth.pwmlfo_amp_ = ((float)p.value / 511.0f);
 							vasynth.SetPWMLFO();
 							break;
 						}
 						case 24:
 						{
-							vasynth.vcalfo_freq_ = ((float)p.value / 127.0f);
-							vasynth.SetVCALFO();
+							vasynth.pwm2lfo_freq_ = ((float)p.value / 127.0f);
+							vasynth.SetPWM2LFO();
 							break;
 						}
 						case 25:
 						{
-							vasynth.vcalfo_amp_ = ((float)p.value / 127.0f);
-							vasynth.SetVCALFO();
+							vasynth.pwm2lfo_amp_ = ((float)p.value / 511.0f);
+							vasynth.SetPWM2LFO();
 							break;
 						}
 						case 26:
 						{
-							vasynth.vcflfo_freq_ = ((float)p.value / 127.0f);
-							vasynth.SetVCFLFO();
+							vasynth.vcavcflfo_freq_ = ((float)p.value / 127.0f);
+							vasynth.SetVCAVCFLFO();
 							break;
 						}
 						case 27:
 						{
-							vasynth.vcflfo_amp_ = ((float)p.value / 127.0f);
-							vasynth.SetVCFLFO();
+							vasynth.vcavcflfo_amp_ = ((float)p.value / 127.0f);
+							vasynth.SetVCAVCFLFO();
 							break;
 						}
 						case 28:
 						{
-							vasynth.vcalfo_waveform_ = p.value >> 4;
-							vasynth.vcflfo_waveform_ = p.value >> 4;
-							vasynth.SetVCALFO();
-							vasynth.SetVCFLFO();
+							vasynth.vcavcflfo_waveform_ = p.value >> 4;
+							vasynth.SetVCAVCFLFO();
 							break;
 						}
 					}

@@ -7,7 +7,7 @@
 #include "main.h"
 
 // preset
-#define PRESET_MAX 10
+#define PRESET_MAX 1
 
 using namespace daisy;
 using namespace daisysp;
@@ -43,14 +43,14 @@ typedef struct
 	float pwmlfo_freq;
 	float pwmlfo_amp;
 
-	uint8_t vcflfo_waveform;
-	float vcflfo_freq;
-	float vcflfo_amp;
+	uint8_t pwm2lfo_waveform;
+	float pwm2lfo_freq;
+	float pwm2lfo_amp;
 	
-	uint8_t vcalfo_waveform;
-	float vcalfo_freq;
-	float vcalfo_amp;
-	
+	uint8_t vcavcflfo_waveform;
+	float vcavcflfo_freq;
+	float vcavcflfo_amp;
+
 	float vcf_kbd_follow;
 	float env_kbd_follow;
 
@@ -88,8 +88,8 @@ class VASynth
 	void SetFilter();
 	void SetLFO();
 	void SetPWMLFO();
-	void SetVCFLFO();
-	void SetVCALFO();
+	void SetPWM2LFO();
+	void SetVCAVCFLFO();
 	void Process(float *, float *);
 	void NoteOn(uint8_t, uint8_t);
 	void NoteOff(uint8_t);
@@ -132,13 +132,13 @@ class VASynth
 	float pwmlfo_freq_;
 	float pwmlfo_amp_;
 
-	uint8_t vcflfo_waveform_;
-	float vcflfo_freq_;
-	float vcflfo_amp_;
+	uint8_t pwm2lfo_waveform_;
+	float pwm2lfo_freq_;
+	float pwm2lfo_amp_;
 
-	uint8_t vcalfo_waveform_;
-	float vcalfo_freq_;
-	float vcalfo_amp_;
+	uint8_t vcavcflfo_waveform_;
+	float vcavcflfo_freq_;
+	float vcavcflfo_amp_;
 	
 	float vcf_kbd_follow_;
 	float env_kbd_follow_;
@@ -162,8 +162,8 @@ class VASynth
 	Oscillator osc2_[VOICES_MAX];
 	Oscillator lfo_;
 	Oscillator pwmlfo_;
-	Oscillator vcflfo_;
-	Oscillator vcalfo_;
+	Oscillator pwm2lfo_;
+	Oscillator vcavcflfo_;
 	Adsr eg_a_[VOICES_MAX];
 	Adsr eg_f_[VOICES_MAX];
 	MoogLadder flt[VOICES_MAX];
