@@ -624,7 +624,10 @@ int main(void)
 	qspi_config.pin_config.ncs = {DSY_GPIOG, 6};
 	hardware.qspi.Init(qspi_config);
 
-	// setup incl default values
+	// setup vasynth initial values
+	vasynth.Init();
+
+	// load the default patch
 	vasynth.First();
 
 	// Initialize USB Midi 
