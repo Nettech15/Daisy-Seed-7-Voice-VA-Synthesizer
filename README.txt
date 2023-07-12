@@ -4,11 +4,7 @@ This code is a modification of OscPocketD/VASynth, created by Staffan Melin, sta
 It was later modified by (Steven @moonfriendsynth) to work with the Daisy Pod.
 I (Christopher @Nettech15) have modified it further to run on the Daisy Seed without the use of the Daisy Pod board.
 Synth parameters are now controlled by a Miditech i2-61 midi keyboard.
-Multiple Daisy Seeds will appear as USB-MIDI devices with the name "Daisy Seed Built in" and the device number.
-Audio output/input is thru the built-in audio codec.
-
 Feel free to copy, modify, and improve this code to match your equipment and sound requirements.
-In the meantime, I will be actively working on implementing more features and fixing existing problems.
 
 Specifications:
 
