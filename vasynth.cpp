@@ -30,10 +30,10 @@ VASynthSetting preset_setting[PRESET_MAX] =
 		VASynth::WAVE_POLYBLEP_SAW, 0.5f, 0.0f, 0.5f,
 		VASynth::WAVE_POLYBLEP_SAW, 0.06f, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
-		VASynth::WAVE_SIN, 0.5f, 0.0f,
-		VASynth::WAVE_SIN, 0.2f, 0.2f,
-		VASynth::WAVE_SIN, 0.1f, 0.2f,
-		VASynth::WAVE_SIN, 0.2f, 0.0f,
+		VASynth::WAVE_TRI, 0.5f, 0.0f,
+		VASynth::WAVE_TRI, 0.2f, 0.2f,
+		VASynth::WAVE_TRI, 0.1f, 0.2f,
+		VASynth::WAVE_SAW, 0.2f, 0.0f,
 		0.0f, 0.0f,
 		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	}
