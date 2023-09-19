@@ -31,8 +31,13 @@ float master_tune = 0.0f;
 VASynth vasynth;
 uint8_t gPlay = PLAY_ON;
 
+// fx
+DelayLine<float, DELAY_MAX> DSY_SDRAM_BSS delay_;
+
+// sequencer
 void SequencerPlay(uint16_t);
 void SequencerRecord(uint8_t, uint8_t);
+void SeqTimer_Config(void);
 void writeSram(uint32_t, uint8_t);
 uint8_t readSram(uint32_t);
 void writeSramWord(uint32_t, uint16_t);
@@ -576,6 +581,29 @@ void Callback(void* data)
 	SequencerPlay(seqmode);
 }
 
+void SeqTimer_Config(void)
+{
+	/* Create Timer Handle and Config */
+    TimerHandle         tim5;
+    TimerHandle::Config tim_cfg;
+
+    /** TIM5 with IRQ enabled */
+    tim_cfg.periph     = TimerHandle::Config::Peripheral::TIM_5;
+    tim_cfg.enable_irq = true;
+
+    /** Configure frequency (240Hz) */
+    auto tim_target_freq = 240;
+    auto tim_base_freq   = System::GetPClk2Freq();
+    tim_cfg.period       = tim_base_freq / tim_target_freq;
+
+    /** Initialize timer */
+    tim5.Init(tim_cfg);
+    tim5.SetCallback(Callback);
+
+    /** Start the timer, and generate callbacks at the end of each period */
+    tim5.Start();
+}
+
 int main(void)
 {
 	// init hardware
@@ -610,28 +638,15 @@ int main(void)
 	// let everything settle
 	System::Delay(100);
 	
+	// Stereo simulator
+	delay_.Init();
+	delay_.SetDelay(sysSampleRate * 0.01f);
+
+	// Start the sequencer clock
+	SeqTimer_Config();
+
 	// Start calling the audio callback
 	hardware.StartAudio(AudioCallback);
-
-	/* Create Timer Handle and Config */
-    TimerHandle         tim5;
-    TimerHandle::Config tim_cfg;
-
-    /** TIM5 with IRQ enabled */
-    tim_cfg.periph     = TimerHandle::Config::Peripheral::TIM_5;
-    tim_cfg.enable_irq = true;
-
-    /** Configure frequency (240Hz) */
-    auto tim_target_freq = 240;
-    auto tim_base_freq   = System::GetPClk2Freq();
-    tim_cfg.period       = tim_base_freq / tim_target_freq;
-
-    /** Initialize timer */
-    tim5.Init(tim_cfg);
-    tim5.SetCallback(Callback);
-
-    /** Start the timer, and generate callbacks at the end of each period */
-    tim5.Start();
 
 	// Loop forever
 	for(;;)

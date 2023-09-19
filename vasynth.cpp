@@ -15,9 +15,7 @@ extern uint8_t gPlay;
 extern uint8_t param_;
 extern float pitch_bend;
 extern float master_tune;
-
-// fx
-static DelayLine<float, DELAY_MAX> DSY_SDRAM_BSS delay_;
+extern DelayLine<float, DELAY_MAX> DSY_SDRAM_BSS delay_;
 
 // presets
 
@@ -109,10 +107,6 @@ void VASynth::Init()
 	vcavcflfo_.SetWaveform(vcavcflfo_waveform_);
 	vcavcflfo_.SetFreq(vcavcflfo_freq_);
 	vcavcflfo_.SetAmp(vcavcflfo_amp_);
-
-	// stereo simulator
-	delay_.Init();
-	delay_.SetDelay(sample_rate_ * 0.01f);
 
     // init
     osc_next_ = 0;
