@@ -8,7 +8,11 @@
     "type": "cortex-debug",
     "runToEntryPoint": "main",
     "showDevDebugOutput": "none",
-    "servertype": "stlink"
+    "servertype": "stlink",
+    "liveWatch": {
+        "enabled": true,
+        "samplesPerSecond": 4
+      },
   },
     {
       "configFiles": [
