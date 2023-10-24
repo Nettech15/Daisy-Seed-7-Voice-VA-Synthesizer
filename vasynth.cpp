@@ -323,7 +323,7 @@ void VASynth::NoteOff(uint8_t midi_note)
 
 void VASynth::PitchBend(int16_t data)
 {
-	pitch_bend = 1.0f - ((float)data / 4096.0f);
+	pitch_bend = 1.0f - (2.0f * ((float)data / 8192.0f));
 }	
 
 void VASynth::ProgramChange(uint8_t data)
