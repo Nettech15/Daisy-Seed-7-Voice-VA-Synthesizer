@@ -15,7 +15,7 @@ Specifications:
 - Separate ADSR's for VCA and VCF
 - MIDI Editable parameters. 
 - Ten User-Programmable Patches using QSPI Flash memory storage.
-- Waveform select for both oscillators; Sine/Triangle/Saw/Square/Ramp/Polyblep-Tri/Polyblep-Saw/Polyblep-Square
+- Waveform select for both oscillators; Triangle / Saw / Square(PWM) / Polyblep-Saw.
 - Oscillator Mix. 
 - Oscillator #2 De-tune. 
 - Scale for Oscillator #2. 
