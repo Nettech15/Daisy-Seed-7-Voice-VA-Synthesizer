@@ -62,7 +62,7 @@ void AudioCallback(AudioHandle::InterleavingInputBuffer  in,
 			vasynth.Process(&voice_left, &voice_right);
 			
 			out[n] = voice_left + in[n];
-			out[n + 1] = voice_right + in[n + 1];	
+			out[n + 1] = voice_right + in[n + 1];
 		} 
 		else 
 		{
@@ -133,13 +133,41 @@ void HandleMidiMessage(MidiEvent m)
 						}
 						case 1:
 						{
-							vasynth.waveform_ = p.value >> 4;
+							switch(p.value >> 5)
+							{
+								case 0:
+									vasynth.waveform_ = WAVE_TRI;
+									break;
+								case 1:
+									vasynth.waveform_ = WAVE_SAW;
+									break;
+								case 2:
+									vasynth.waveform_ = WAVE_SQUARE;
+									break;
+								case 3:
+									vasynth.waveform_ = WAVE_POLYBLEP_SAW;
+									break;
+							}
 							vasynth.SetWaveform();
 							break;
 						}
 						case 2:
 						{
-							vasynth.osc2_waveform_ = p.value >> 4;
+							switch(p.value >> 5)
+							{
+								case 0:
+									vasynth.osc2_waveform_ = WAVE_TRI;
+									break;
+								case 1:
+									vasynth.osc2_waveform_ = WAVE_SAW;
+									break;
+								case 2:
+									vasynth.osc2_waveform_ = WAVE_SQUARE;
+									break;
+								case 3:
+									vasynth.osc2_waveform_ = WAVE_POLYBLEP_SAW;
+									break;
+							}
 							vasynth.SetWaveform();
 							break;
 						}
@@ -286,7 +314,21 @@ void HandleMidiMessage(MidiEvent m)
 						}
 						case 28:
 						{
-							vasynth.vcavcflfo_waveform_ = p.value >> 4;
+							switch(p.value >> 5)
+							{
+								case 0:
+									vasynth.vcavcflfo_waveform_ = WAVE_TRI;
+									break;
+								case 1:
+									vasynth.vcavcflfo_waveform_ = WAVE_SAW;
+									break;
+								case 2:
+									vasynth.vcavcflfo_waveform_ = WAVE_SQUARE;
+									break;
+								case 3:
+									vasynth.vcavcflfo_waveform_ = WAVE_POLYBLEP_SAW;
+									break;
+							}
 							vasynth.SetVCAVCFLFO();
 							break;
 						}
@@ -608,7 +650,8 @@ int main(void)
 {
 	// init hardware
 	hardware.Init(true); // true = boost to 480MHz
-	hardware.SetAudioBlockSize(4);
+	hardware.SetAudioBlockSize(6);
+
 	sysSampleRate = hardware.AudioSampleRate();
 	sysCallbackRate = hardware.AudioCallbackRate();
 

@@ -15,6 +15,7 @@ extern uint8_t gPlay;
 extern uint8_t param_;
 extern float pitch_bend;
 extern float master_tune;
+
 extern DelayLine<float, DELAY_MAX> DSY_SDRAM_BSS delay_;
 
 // presets
@@ -25,13 +26,13 @@ uint8_t preset_number = 0;
 VASynthSetting preset_setting[PRESET_MAX] = 
 {
 	{//1
-		VASynth::WAVE_POLYBLEP_SAW, 0.5f, 0.0f, 0.5f,
-		VASynth::WAVE_POLYBLEP_SAW, 0.06f, 1.0f, 0.5f,
+		WAVE_POLYBLEP_SAW, 0.5f, 0.0f, 0.5f,
+		WAVE_POLYBLEP_SAW, 0.06f, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
-		VASynth::WAVE_TRI, 0.5f, 0.0f,
-		VASynth::WAVE_TRI, 0.2f, 0.2f,
-		VASynth::WAVE_TRI, 0.1f, 0.2f,
-		VASynth::WAVE_SAW, 0.2f, 0.0f,
+		WAVE_TRI, 0.5f, 0.0f,
+		WAVE_TRI, 0.2f, 0.2f,
+		WAVE_TRI, 0.1f, 0.2f,
+		WAVE_SAW, 0.2f, 0.0f,
 		0.0f, 0.0f,
 		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	}
@@ -221,6 +222,17 @@ void VASynth::Process(float *out_l, float *out_r)
 			follow[i] = 1.0f - (float (note_midi_[i])/84.0f);	
 		}
 
+		if(env_kbd_follow_)
+		{
+			// Calculate envelope speeds for VCF and VCA based on ENV keyboard follow value
+			eg_f_[i].SetTime(ADSR_SEG_ATTACK, eg_f_attack_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
+			eg_f_[i].SetTime(ADSR_SEG_DECAY, eg_f_decay_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
+			eg_f_[i].SetTime(ADSR_SEG_RELEASE, eg_f_release_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
+			eg_a_[i].SetTime(ADSR_SEG_ATTACK, eg_a_attack_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
+			eg_a_[i].SetTime(ADSR_SEG_DECAY, eg_a_decay_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
+			eg_a_[i].SetTime(ADSR_SEG_RELEASE, eg_a_release_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
+		}
+		
 		// EG - AMP
 		env_a_out = eg_a_[i].Process(note_on);
 

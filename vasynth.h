@@ -9,6 +9,12 @@
 // preset
 #define PRESET_MAX 1
 
+// waveforms
+#define WAVE_TRI 1
+#define WAVE_SAW 2
+#define WAVE_SQUARE 4
+#define WAVE_POLYBLEP_SAW 6 
+
 using namespace daisy;
 using namespace daisysp;
 using namespace infrasonic;
@@ -67,19 +73,6 @@ class VASynth
 
     VASynth() {}
     ~VASynth() {}
-
-    enum Waveform
-    {
-        WAVE_SIN,
-        WAVE_TRI,
-        WAVE_SAW,
-        WAVE_RAMP,
-        WAVE_SQUARE,
-        WAVE_POLYBLEP_TRI,
-        WAVE_POLYBLEP_SAW,
-        WAVE_POLYBLEP_SQUARE,
-        WAVE_LAST,
-    };
 
 	void Init();
 	void First();
