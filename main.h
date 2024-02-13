@@ -5,8 +5,7 @@
 // Set sequencer memory to SRAM
 #define WRITE_READ_SRAM_ADDR 0x20000000
 
-// settings
-#define WAVEFORMS_MAX 8
+/* Defines ------------------------------------------------------------------*/
 #define VOICES_MAX 8
 #define FILTER_CUTOFF_MAX 18000.0f
 

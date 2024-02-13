@@ -35,6 +35,17 @@ VASynthSetting preset_setting[PRESET_MAX] =
 		WAVE_SAW, 0.2f, 0.0f,
 		0.0f, 0.0f,
 		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
+	},
+	{//2
+		WAVE_SQUARE, 0.5f, 0.0f, 0.5f,
+		WAVE_SQUARE, 0.06f, 1.0f, 0.5f,
+		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
+		WAVE_TRI, 0.5f, 0.0f,
+		WAVE_TRI, 0.2f, 0.2f,
+		WAVE_TRI, 0.1f, 0.2f,
+		WAVE_SAW, 0.2f, 0.0f,
+		0.0f, 0.0f,
+		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	}
 };
 
@@ -113,10 +124,10 @@ void VASynth::Init()
     osc_next_ = 0;
 }
 
-void VASynth::First()
+void VASynth::First(uint8_t patch)
 {
 	sample_rate_ = sysSampleRate;
-	SaveToLive(&preset_setting[0]);
+	SaveToLive(&preset_setting[patch]);
 }	
 
 void VASynth::SetWaveform()

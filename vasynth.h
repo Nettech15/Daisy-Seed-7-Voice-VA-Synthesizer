@@ -7,7 +7,7 @@
 #include "main.h"
 
 // preset
-#define PRESET_MAX 1
+#define PRESET_MAX 2
 
 // waveforms
 #define WAVE_TRI 1
@@ -75,7 +75,7 @@ class VASynth
     ~VASynth() {}
 
 	void Init();
-	void First();
+	void First(uint8_t);
 	void SetWaveform();
 	void SetEG();
 	void SetFilter();
