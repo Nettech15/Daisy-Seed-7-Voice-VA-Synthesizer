@@ -222,16 +222,13 @@ void VASynth::Process(float *out_l, float *out_r)
 			follow[i] = 1.0f - (float (note_midi_[i])/84.0f);	
 		}
 
-		if(env_kbd_follow_)
-		{
-			// Calculate envelope speeds for VCF and VCA based on ENV keyboard follow value
-			eg_f_[i].SetTime(ADSR_SEG_ATTACK, eg_f_attack_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
-			eg_f_[i].SetTime(ADSR_SEG_DECAY, eg_f_decay_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
-			eg_f_[i].SetTime(ADSR_SEG_RELEASE, eg_f_release_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
-			eg_a_[i].SetTime(ADSR_SEG_ATTACK, eg_a_attack_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
-			eg_a_[i].SetTime(ADSR_SEG_DECAY, eg_a_decay_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
-			eg_a_[i].SetTime(ADSR_SEG_RELEASE, eg_a_release_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
-		}
+		// Calculate envelope speeds for VCF and VCA based on ENV keyboard follow value
+		eg_f_[i].SetTime(ADSR_SEG_ATTACK, eg_f_attack_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
+		eg_f_[i].SetTime(ADSR_SEG_DECAY, eg_f_decay_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
+		eg_f_[i].SetTime(ADSR_SEG_RELEASE, eg_f_release_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
+		eg_a_[i].SetTime(ADSR_SEG_ATTACK, eg_a_attack_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
+		eg_a_[i].SetTime(ADSR_SEG_DECAY, eg_a_decay_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
+		eg_a_[i].SetTime(ADSR_SEG_RELEASE, eg_a_release_ * (1.0f - ((env_kbd_follow_ * (1.0f - follow[i])))));
 		
 		// EG - AMP
 		env_a_out = eg_a_[i].Process(note_on);
