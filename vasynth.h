@@ -17,7 +17,6 @@
 
 using namespace daisy;
 using namespace daisysp;
-using namespace infrasonic;
 
 typedef struct
 {
@@ -159,7 +158,7 @@ class VASynth
 	Oscillator vcavcflfo_;
 	Adsr eg_a_[VOICES_MAX];
 	Adsr eg_f_[VOICES_MAX];
-	MoogLadder flt[VOICES_MAX];
+	LadderFilter flt[VOICES_MAX];
 };
 
 #endif

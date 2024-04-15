@@ -6,7 +6,7 @@
 #define WRITE_READ_SRAM_ADDR 0x20000000
 
 /* Defines ------------------------------------------------------------------*/
-#define VOICES_MAX 8
+#define VOICES_MAX 7
 #define FILTER_CUTOFF_MAX 18000.0f
 
 // play status

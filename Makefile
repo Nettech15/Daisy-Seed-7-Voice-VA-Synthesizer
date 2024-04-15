@@ -1,6 +1,8 @@
 # Project Name
 TARGET = oscvasynth
 
+USE_DAISYSP_LGPL = 1
+
 # Sources
 CPP_SOURCES = main.cpp vasynth.cpp
 

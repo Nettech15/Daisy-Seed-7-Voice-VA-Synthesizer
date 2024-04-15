@@ -8,7 +8,7 @@ Feel free to copy, modify, and improve this code to match your equipment and sou
 
 Specifications:
 
-- 8 voice polyphonic.
+- 7 voice polyphonic.
 - Dual oscillator per voice.
 - VCA per voice. 
 - VCF (4-pole Resonant low-pass) per voice.
