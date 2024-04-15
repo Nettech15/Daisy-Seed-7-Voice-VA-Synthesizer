@@ -16,7 +16,6 @@
 #define WAVE_SQUARE 4
 #define WAVE_POLYBLEP_SAW 6 
 
-using namespace daisy;
 using namespace daisysp;
 
 typedef struct

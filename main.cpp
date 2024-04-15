@@ -11,6 +11,7 @@ Feel free to copy, modify, and improve this code to match your equipment and sou
 
 #include "main.h"
 #include "vasynth.h"
+#include "sequencer.h"
 
 using namespace daisy;
 using namespace daisysp;
@@ -33,21 +34,6 @@ uint8_t gPlay = PLAY_ON;
 
 // fx
 DelayLine<float, DELAY_MAX> DSY_SDRAM_BSS delay_;
-
-// sequencer
-void SequencerPlay(uint16_t);
-void SequencerRecord(uint8_t, uint8_t);
-void SeqTimer_Config(void);
-void writeSram(uint32_t, uint8_t);
-uint8_t readSram(uint32_t);
-void writeSramWord(uint32_t, uint16_t);
-uint16_t readSramWord(uint32_t);
-
-uint16_t seqclock = 0, seqtime = 0, seqmode = 0, seqmsg;
-uint16_t seqnote, seqvelocity;
-uint32_t seqmem = 0x00010000;
-
-// audio callback
 
 void AudioCallback(AudioHandle::InterleavingInputBuffer  in,
                    AudioHandle::InterleavingOutputBuffer out,
@@ -73,7 +59,7 @@ void AudioCallback(AudioHandle::InterleavingInputBuffer  in,
 }
 
 // midi handler
-void HandleMidiMessage(MidiEvent m)
+void HandleMidiMessage(MidiEvent m, Sequencer& sequencer)
 {
     switch(m.type)
     {
@@ -82,9 +68,9 @@ void HandleMidiMessage(MidiEvent m)
             NoteOnEvent p = m.AsNoteOn();
             if ((vasynth.midi_channel_ == MIDI_CHANNEL_ALL) || (p.channel == vasynth.midi_channel_))
 			{
-				if(seqmode == 1)
+				if(sequencer.get_mode() == 1)
 				{
-					SequencerRecord((p.note | 0x80), p.velocity);
+					sequencer.record((p.note | 0x80), p.velocity);
 				}
 				vasynth.NoteOn(p.note, p.velocity);
 				hardware.SetLed(true);
@@ -96,9 +82,9 @@ void HandleMidiMessage(MidiEvent m)
             NoteOnEvent p = m.AsNoteOn();
             if ((vasynth.midi_channel_ == MIDI_CHANNEL_ALL) || (p.channel == vasynth.midi_channel_))
 			{
-				if(seqmode == 1)
+				if(sequencer.get_mode() == 1)
 				{
-					SequencerRecord(p.note, 0);
+					sequencer.record(p.note, 0);
 				}
 				vasynth.NoteOff(p.note);
 				hardware.SetLed(false);
@@ -349,39 +335,25 @@ void HandleMidiMessage(MidiEvent m)
 					{
 						case 35:
 						{
-							// Sequencer Mode Record
-							seqmode = 1;
-							seqclock = 0;
+                            // Sequencer Mode Record
+                            sequencer.record_mode(true);
 							break;
 						}
 						case 36:
 						{
 							// Sequencer Mode Record End
-							seqmode = 2;
-							// Place a time-stamp and stop marker at the current position and stop the sequencer
-							writeSramWord(seqmem, seqclock);
-							seqmem++;
-							seqmem++;
-							writeSramWord(seqmem, 0xFFFF);
-							seqmode = 0;
-							seqclock = 0;
-							seqmem = 0x00010000;
+							sequencer.record_mode(false);
 							break;
 						}
 						case 37:
 						{
 							// Sequencer Mode Stop
-							seqmode = 0;
-							seqclock = 0;
-							seqmem = 0x00010000;
+							sequencer.stop_mode();
 							break;
 						}
 						case 38:
 						{
-							// Sequencer Mode Play
-							seqmode = 3;
-							seqclock = 0;
-							seqmem = 0x00010000;
+							sequencer.play_mode();
 							break;
 						}
 						case 39:
@@ -497,155 +469,6 @@ void HandleMidiMessage(MidiEvent m)
     }
 }
 
-void SequencerPlay(uint16_t modenum)
-{
-	if(modenum == 0)
-	{
-		seqclock = 0;
-		seqmem = 0x00010000;
-		return;
-	}
-	
-	if(modenum == 3)
-	{
-		/* Read the time-stamp from SRAM and compare to seqclock*/
-		seqtime = readSramWord(seqmem);
-		
-		while(seqtime == seqclock)
-		{
-			/* Move pointer to note data */
-			seqmem++;
-			seqmem++;
-			
-			/* Read the note from SRAM */
-			seqnote = readSram(seqmem);
-			seqmsg = seqnote & 0x80;
-			seqnote = seqnote & 0x7F;
-			seqmem++;
-		
-			/* Read the velocity from SRAM */
-			seqvelocity = readSram(seqmem);
-			seqmem++;
-			
-			if(seqvelocity == 0xFF)
-			{
-				/* End of sequence reached, reset the position to the beginning and restart */
-				seqclock = 0;
-				seqmem = 0x00010000;
-				return;
-			}
-			
-			if(seqmsg)
-			{
-				/* Play the note */
-				vasynth.NoteOn(seqnote, seqvelocity);
-			}
-			else
-			{
-				/* Stop the note */
-				vasynth.NoteOff(seqnote);
-			}
-			
-			/* Check to see if there are other events at the current sequencer clock */
-			seqtime = readSramWord(seqmem);
-		}
-	}
-	
-	/* All events processed so increment the sequencer clock */
-	seqclock++;
-}
-
-void SequencerRecord(uint8_t recnote, uint8_t recvelocity)
-{
-	/* Write the timestamp to SRAM */
-	writeSramWord(seqmem, seqclock);
-	seqmem++;
-	seqmem++;
-		
-	/* Write the note to SRAM */
-	writeSram(seqmem, recnote);
-	seqmem++;
-		
-	/* Write the velocity to SRAM */
-	writeSram(seqmem, recvelocity);
-	seqmem++;
-	
-	if(seqmem > 0x7FFF8)
-	{
-		/* There is no more memory left for the sequencer to use */
-		/* Place a timestamp and stop marker at the current position and select stop mode */
-		writeSramWord(seqmem, seqclock);
-		seqmem++;
-		seqmem++;
-		writeSramWord(seqmem, 0xFFFF);
-		seqmode = 0;
-		seqclock = 0;
-		seqmem = 0x00010000;
-	}
-}
-
-/* SRAM memory handling routines */
-void writeSram(uint32_t l_addr, uint8_t l_data)
-{
-  /* Pointer write on specific location of backup SRAM */
-  *(volatile uint8_t *) (WRITE_READ_SRAM_ADDR + l_addr) = l_data;
-}
-
-uint8_t readSram(uint32_t l_addr)
-{
-  uint8_t i_retval;
-	
-  /* Pointer write from specific location of backup SRAM */
-  i_retval =  *(volatile uint8_t *) (WRITE_READ_SRAM_ADDR + l_addr);
-	
-  return i_retval;
-}
-
-void writeSramWord(uint32_t l_addr_w, uint16_t l_data_w)
-{
-  /* Pointer write on specific location of backup SRAM */
-  *(volatile uint16_t *) (WRITE_READ_SRAM_ADDR + l_addr_w) = l_data_w;
-}
-
-uint16_t readSramWord(uint32_t l_addr_w)
-{
-  uint16_t i_retval_w;
-	
-  /* Pointer write from specific location of backup SRAM */
-  i_retval_w =  *(volatile uint16_t *) (WRITE_READ_SRAM_ADDR + l_addr_w);
-	
-  return i_retval_w;
-}
-
-/* Process sequencer requests */
-void Callback(void* data)
-{
-	SequencerPlay(seqmode);
-}
-
-void SeqTimer_Config(void)
-{
-	/* Create Timer Handle and Config */
-    TimerHandle         tim5;
-    TimerHandle::Config tim_cfg;
-
-    /** TIM5 with IRQ enabled */
-    tim_cfg.periph     = TimerHandle::Config::Peripheral::TIM_5;
-    tim_cfg.enable_irq = true;
-
-    /** Configure frequency (240Hz) */
-    auto tim_target_freq = 240;
-    auto tim_base_freq   = System::GetPClk2Freq();
-    tim_cfg.period       = tim_base_freq / tim_target_freq;
-
-    /** Initialize timer */
-    tim5.Init(tim_cfg);
-    tim5.SetCallback(Callback);
-
-    /** Start the timer, and generate callbacks at the end of each period */
-    tim5.Start();
-}
-
 int main(void)
 {
 	// init hardware
@@ -672,9 +495,8 @@ int main(void)
 	// Stereo simulator
 	delay_.Init();
 	delay_.SetDelay(sysSampleRate * 0.01f);
-
-	// Start the sequencer clock
-	SeqTimer_Config();
+    
+    Sequencer sequencer(std::make_shared<VASynth>(vasynth));
 
 	// Start calling the audio callback
 	hardware.StartAudio(AudioCallback);
@@ -686,7 +508,7 @@ int main(void)
         midi.Listen();
         while(midi.HasEvents())
         {
-            HandleMidiMessage(midi.PopEvent());
+            HandleMidiMessage(midi.PopEvent(), sequencer);
         }	
 	}
 }
