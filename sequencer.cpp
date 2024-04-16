@@ -9,8 +9,7 @@
 /* Process sequencer requests */
 static void callback(void* data)
 {
-    Sequencer *pSeq = static_cast<Sequencer *>(data);
-	pSeq->play(pSeq->get_mode());
+    static_cast<Sequencer *>(data)->play();	
 }
 
 /* SRAM memory handling routines */
@@ -47,6 +46,10 @@ uint16_t readSramWord(uint32_t l_addr_w)
 }
 
 Sequencer::Sequencer(std::shared_ptr<VASynth> va_synth) :
+    clock_{0},
+    time_{0},
+    mode_{Mode::Stop},
+    memory_{0x00010000},
     vasynth_{va_synth}
 {
 	/* Create Timer Handle and Config */
@@ -70,41 +73,45 @@ Sequencer::Sequencer(std::shared_ptr<VASynth> va_synth) :
     tim5.Start();   
 }
 
-void Sequencer::play(uint16_t modenum)
+void Sequencer::reset()
 {
-	if(modenum == 0)
+    clock_ = 0;
+    memory_ = memory_origin_;
+}
+
+void Sequencer::play()
+{
+	if(mode_ == Mode::Stop)
 	{
-		seqclock = 0;
-		seqmem = 0x00010000;
+		reset();
 		return;
 	}
 	
-	if(modenum == 3)
+	if(mode_ == Mode::Play)
 	{
 		/* Read the time-stamp from SRAM and compare to seqclock*/
-		seqtime = readSramWord(seqmem);
+		time_ = readSramWord(memory_);
 		
-		while(seqtime == seqclock)
+		while(time_ == clock_)
 		{
 			/* Move pointer to note data */
-			seqmem++;
-			seqmem++;
+			memory_++;
+			memory_++;
 			
 			/* Read the note from SRAM */
-			seqnote = readSram(seqmem);
+			seqnote = readSram(memory_);
 			seqmsg = seqnote & 0x80;
 			seqnote = seqnote & 0x7F;
-			seqmem++;
+			memory_++;
 		
 			/* Read the velocity from SRAM */
-			seqvelocity = readSram(seqmem);
-			seqmem++;
+			seqvelocity = readSram(memory_);
+			memory_++;
 			
 			if(seqvelocity == 0xFF)
 			{
 				/* End of sequence reached, reset the position to the beginning and restart */
-				seqclock = 0;
-				seqmem = 0x00010000;
+				reset();
 				return;
 			}
 			
@@ -120,40 +127,38 @@ void Sequencer::play(uint16_t modenum)
 			}
 			
 			/* Check to see if there are other events at the current sequencer clock */
-			seqtime = readSramWord(seqmem);
+			time_ = readSramWord(memory_);
 		}
 	}
 	
 	/* All events processed so increment the sequencer clock */
-	seqclock++;
+	clock_++;
 }
 
 void Sequencer::record(uint8_t recnote, uint8_t recvelocity)
 {
 	/* Write the timestamp to SRAM */
-	writeSramWord(seqmem, seqclock);
-	seqmem++;
-	seqmem++;
+	writeSramWord(memory_, clock_);
+	memory_++;
+	memory_++;
 		
 	/* Write the note to SRAM */
-	writeSram(seqmem, recnote);
-	seqmem++;
+	writeSram(memory_, recnote);
+	memory_++;
 		
 	/* Write the velocity to SRAM */
-	writeSram(seqmem, recvelocity);
-	seqmem++;
+	writeSram(memory_, recvelocity);
+	memory_++;
 	
-	if(seqmem > 0x7FFF8)
+	if(memory_ > 0x7FFF8)
 	{
 		/* There is no more memory left for the sequencer to use */
 		/* Place a timestamp and stop marker at the current position and select stop mode */
-		writeSramWord(seqmem, seqclock);
-		seqmem++;
-		seqmem++;
-		writeSramWord(seqmem, 0xFFFF);
-		seqmode = 0;
-		seqclock = 0;
-		seqmem = 0x00010000;
+		writeSramWord(memory_, clock_);
+		memory_++;
+		memory_++;
+		writeSramWord(memory_, 0xFFFF);
+		stop_mode();
 	}
 }
 
@@ -162,34 +167,30 @@ void Sequencer::record_mode(bool enable)
     if (enable)
     {
         // Sequencer Mode Record
-        seqmode = 1;
-        seqclock = 0;
+        mode_ = Mode::RecordEnable;
+        clock_ = 0;
     }
     else
     {
-        seqmode = 2;
+        mode_ = Mode::RecordDisable;
         // Place a time-stamp and stop marker at the current position and stop the sequencer
-        writeSramWord(seqmem, seqclock);
-        seqmem++;
-        seqmem++;
-        writeSramWord(seqmem, 0xFFFF);
-        seqmode = 0;
-        seqclock = 0;
-        seqmem = 0x00010000;
+        writeSramWord(memory_, clock_);
+        memory_++;
+        memory_++;
+        writeSramWord(memory_, 0xFFFF);
+        stop_mode();
     }
 }
 
 void Sequencer::stop_mode()
 {
-    seqmode = 0;
-    seqclock = 0;
-    seqmem = 0x00010000;
+    mode_ = Mode::Stop;
+    reset();
 }
 
 void Sequencer::play_mode()
 {
-    seqmode = 3;
-    seqclock = 0;
-    seqmem = 0x00010000;
+    mode_ = Mode::Play;
+    reset();
 }
 

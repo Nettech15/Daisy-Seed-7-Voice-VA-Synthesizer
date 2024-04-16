@@ -68,7 +68,7 @@ void HandleMidiMessage(MidiEvent m, Sequencer& sequencer)
             NoteOnEvent p = m.AsNoteOn();
             if ((vasynth.midi_channel_ == MIDI_CHANNEL_ALL) || (p.channel == vasynth.midi_channel_))
 			{
-				if(sequencer.get_mode() == 1)
+				if(sequencer.get_mode() == Sequencer::Mode::RecordEnable)
 				{
 					sequencer.record((p.note | 0x80), p.velocity);
 				}
@@ -82,7 +82,7 @@ void HandleMidiMessage(MidiEvent m, Sequencer& sequencer)
             NoteOnEvent p = m.AsNoteOn();
             if ((vasynth.midi_channel_ == MIDI_CHANNEL_ALL) || (p.channel == vasynth.midi_channel_))
 			{
-				if(sequencer.get_mode() == 1)
+				if(sequencer.get_mode() == Sequencer::Mode::RecordEnable)
 				{
 					sequencer.record(p.note, 0);
 				}
