@@ -2,7 +2,7 @@
 TARGET = oscvasynth
 
 # Sources
-CPP_SOURCES = main.cpp moogladder.cpp vasynth.cpp sequencer.cpp
+CPP_SOURCES = main.cpp moogladder.cpp vasynth.cpp sequencer.cpp midi_manager.cpp
 
 # Library Locations
 LIBDAISY_DIR = ../../libDaisy

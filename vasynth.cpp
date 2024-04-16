@@ -12,10 +12,6 @@ extern DaisySeed hardware;
 extern float sysSampleRate;
 extern uint8_t gPlay;
 
-extern uint8_t param_;
-extern float pitch_bend;
-extern float master_tune;
-
 extern DelayLine<float, DELAY_MAX> DSY_SDRAM_BSS delay_;
 
 // presets
@@ -122,6 +118,8 @@ void VASynth::Init()
 
     // init
     osc_next_ = 0;
+    pitch_bend_ = 1.0f;
+    master_tune_ = 0.0f;
 }
 
 void VASynth::First(uint8_t patch)
@@ -267,8 +265,8 @@ void VASynth::Process(float *out_l, float *out_r)
 		}
 
 		// Set osc + osc2 frequencies with pitch bend, mod wheel, master tuning, and osc2 detune
-		tuning = bender_offset[i] * master_tune;
-		bender = bender_offset[i] * pitch_bend;
+		tuning = bender_offset[i] * master_tune_;
+		bender = bender_offset[i] * pitch_bend_;
 		pitchmod = bender_offset[i] * lfo_out;
 		detune = bender_offset[i] * osc2_detune_;
 		osc_[i].SetFreq((note_freq_[i] + detune_ + bender + tuning + pitchmod));
@@ -343,12 +341,12 @@ void VASynth::NoteOff(uint8_t midi_note)
 
 void VASynth::PitchBend(int16_t data)
 {
-	pitch_bend = 1.0f - (2.0f * ((float)data / 8192.0f));
+	pitch_bend_ = 1.0f - (2.0f * ((float)data / 8192.0f));
 }	
 
-void VASynth::ProgramChange(uint8_t data)
+void VASynth::SetMasterTune(int16_t data)
 {
-	param_= data;
+    master_tune_ = 1.0f - ((float)data / 64.0f);
 }
 
 // Flash handling - load and save

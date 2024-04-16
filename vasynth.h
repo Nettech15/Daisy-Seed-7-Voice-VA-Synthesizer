@@ -75,6 +75,7 @@ class VASynth
 
 	void Init();
 	void First(uint8_t);
+    void SetMasterTune(int16_t data);
 	void SetWaveform();
 	void SetEG();
 	void SetFilter();
@@ -87,7 +88,6 @@ class VASynth
 	void NoteOff(uint8_t);
 	void FlashLoad(uint8_t aSlot);
 	void FlashSave(uint8_t aSlot);
-	void ProgramChange(uint8_t data);
 	void PitchBend(int16_t data);
 	void SaveToLive(VASynthSetting *);
 	void LiveToSave(VASynthSetting *);
@@ -159,6 +159,9 @@ class VASynth
 	Adsr eg_a_[VOICES_MAX];
 	Adsr eg_f_[VOICES_MAX];
 	infrasonic::MoogLadder flt[VOICES_MAX];
+    
+    float pitch_bend_;
+    float master_tune_;
 };
 
 #endif
