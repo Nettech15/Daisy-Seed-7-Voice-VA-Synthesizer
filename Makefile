@@ -4,7 +4,11 @@ TARGET = oscvasynth
 USE_DAISYSP_LGPL = 1
 
 # Sources
-CPP_SOURCES = main.cpp vasynth.cpp sequencer.cpp midi_manager.cpp
+CPP_SOURCES = \
+ src/main.cpp \
+ src/vasynth.cpp \
+ src/sequencer.cpp \
+ src/midi_manager.cpp
 
 # Library Locations
 LIBDAISY_DIR = ../../libDaisy
