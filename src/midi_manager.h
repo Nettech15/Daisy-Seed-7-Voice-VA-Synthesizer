@@ -4,6 +4,9 @@
 #include "daisy_seed.h"
 #include <memory>
 
+#define MIDI_CHANNEL_ONE 0
+#define MIDI_CHANNEL_ALL 17
+
 using namespace daisy;
 
 class VASynth;
@@ -16,14 +19,13 @@ class MidiManager
     MidiManager(std::shared_ptr<VASynth>   va_synth,
                 std::unique_ptr<Sequencer> sequencer);
 
-    void HandleMidiMessage(MidiEvent m);
+    virtual void HandleMidiMessage(MidiEvent m);
 
-    void setControlParam(uint8_t data) { control_param_ = data; }
-
-  private:
+  protected:
     std::shared_ptr<VASynth>   vasynth_;
     std::unique_ptr<Sequencer> sequencer_;
-    uint8_t                    control_param_;
+
+    float fixed2float(uint8_t value, const float max = 127.0f);
 };
 
 #endif

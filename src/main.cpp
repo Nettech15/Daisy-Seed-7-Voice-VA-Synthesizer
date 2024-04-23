@@ -11,7 +11,7 @@ Feel free to copy, modify, and improve this code to match your equipment and sou
 
 #include "vasynth.h"
 #include "sequencer.h"
-#include "midi_manager.h"
+#include "miditech_i2_61.h"
 
 using namespace daisy;
 using namespace daisysp;
@@ -64,8 +64,11 @@ int main(void)
     // let everything settle
     System::Delay(100);
 
-    Sequencer   sequencer(vasynth);
-    MidiManager midi_manager(vasynth, std::make_unique<Sequencer>(sequencer));
+    Sequencer sequencer(vasynth);
+
+    std::unique_ptr<MidiManager> midi_manager
+        = std::make_unique<MidiTech_i2_61>(
+            vasynth, std::make_unique<Sequencer>(sequencer));
 
     // Start calling the audio callback
     hardware.StartAudio(AudioCallback);
@@ -77,7 +80,7 @@ int main(void)
         midi.Listen();
         while(midi.HasEvents())
         {
-            midi_manager.HandleMidiMessage(midi.PopEvent());
+            midi_manager->HandleMidiMessage(midi.PopEvent());
         }
     }
 }

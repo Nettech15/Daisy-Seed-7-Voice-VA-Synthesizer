@@ -8,7 +8,8 @@ CPP_SOURCES = \
  src/main.cpp \
  src/vasynth.cpp \
  src/sequencer.cpp \
- src/midi_manager.cpp
+ src/midi_manager.cpp \
+ src/miditech_i2_61.cpp
 
 # Library Locations
 LIBDAISY_DIR = ../../libDaisy
