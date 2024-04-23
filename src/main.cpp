@@ -17,7 +17,7 @@ using namespace daisy;
 using namespace daisysp;
 
 // globals
-DaisySeed hardware;
+DaisySeed      hardware;
 MidiUsbHandler midi;
 
 // sound
@@ -26,58 +26,58 @@ std::shared_ptr<VASynth> vasynth;
 void AudioCallback(AudioHandle::InterleavingInputBuffer  in,
                    AudioHandle::InterleavingOutputBuffer out,
                    size_t                                size)
-{	
-	float voice_left, voice_right;
-	
-	for (size_t n = 0; n < size; n += 2)
-	{	
-		if (vasynth->IsPlaying())
-		{			
-			vasynth->Process(&voice_left, &voice_right);
-			
-			out[n] = voice_left + in[n];
-			out[n + 1] = voice_right + in[n + 1];
-		} 
-		else 
-		{
-			out[n] = 0;
-			out[n + 1] = 0;		
-		}		
-	}
+{
+    float voice_left, voice_right;
+
+    for(size_t n = 0; n < size; n += 2)
+    {
+        if(vasynth->IsPlaying())
+        {
+            vasynth->Process(&voice_left, &voice_right);
+
+            out[n]     = voice_left + in[n];
+            out[n + 1] = voice_right + in[n + 1];
+        }
+        else
+        {
+            out[n]     = 0;
+            out[n + 1] = 0;
+        }
+    }
 }
 
 int main(void)
 {
-	// init hardware
-	hardware.Init(true); // true = boost to 480MHz
-	hardware.SetAudioBlockSize(1);
+    // init hardware
+    hardware.Init(true); // true = boost to 480MHz
+    hardware.SetAudioBlockSize(1);
 
-	// sysCallbackRate = hardware.AudioCallbackRate();
+    // sysCallbackRate = hardware.AudioCallbackRate();
 
     vasynth = std::make_shared<VASynth>(hardware.AudioSampleRate());
 
-	// Initialize USB Midi 
+    // Initialize USB Midi
     MidiUsbHandler::Config midi_cfg;
     midi_cfg.transport_config.periph = MidiUsbTransport::Config::INTERNAL;
-	midi.Init(midi_cfg);
+    midi.Init(midi_cfg);
 
-	// let everything settle
-	System::Delay(100);
-	
-    Sequencer sequencer(vasynth);
+    // let everything settle
+    System::Delay(100);
+
+    Sequencer   sequencer(vasynth);
     MidiManager midi_manager(vasynth, std::make_unique<Sequencer>(sequencer));
 
-	// Start calling the audio callback
-	hardware.StartAudio(AudioCallback);
+    // Start calling the audio callback
+    hardware.StartAudio(AudioCallback);
 
-	// Loop forever
-	for(;;)
-	{
+    // Loop forever
+    for(;;)
+    {
         // handle MIDI Events
         midi.Listen();
         while(midi.HasEvents())
         {
             midi_manager.HandleMidiMessage(midi.PopEvent());
-        }	
-	}
+        }
+    }
 }
