@@ -9,7 +9,6 @@ Feel free to copy, modify, and improve this code to match your equipment and sou
 #include "daisy_seed.h"
 #include "daisysp.h"
 
-#include "main.h"
 #include "vasynth.h"
 #include "sequencer.h"
 #include "midi_manager.h"
@@ -20,19 +19,9 @@ using namespace daisysp;
 // globals
 DaisySeed hardware;
 MidiUsbHandler midi;
-float sysSampleRate;
-float sysCallbackRate;
-extern uint8_t preset_max;
-extern VASynthSetting preset_setting[PRESET_MAX];
-
-float master_tune = 0.0f;
 
 // sound
-VASynth vasynth;
-uint8_t gPlay = PLAY_ON;
-
-// fx
-DelayLine<float, DELAY_MAX> DSY_SDRAM_BSS delay_;
+std::shared_ptr<VASynth> vasynth;
 
 void AudioCallback(AudioHandle::InterleavingInputBuffer  in,
                    AudioHandle::InterleavingOutputBuffer out,
@@ -42,9 +31,9 @@ void AudioCallback(AudioHandle::InterleavingInputBuffer  in,
 	
 	for (size_t n = 0; n < size; n += 2)
 	{	
-		if (gPlay == PLAY_ON)
+		if (vasynth->IsPlaying())
 		{			
-			vasynth.Process(&voice_left, &voice_right);
+			vasynth->Process(&voice_left, &voice_right);
 			
 			out[n] = voice_left + in[n];
 			out[n + 1] = voice_right + in[n + 1];
@@ -63,14 +52,9 @@ int main(void)
 	hardware.Init(true); // true = boost to 480MHz
 	hardware.SetAudioBlockSize(1);
 
-	sysSampleRate = hardware.AudioSampleRate();
-	sysCallbackRate = hardware.AudioCallbackRate();
+	// sysCallbackRate = hardware.AudioCallbackRate();
 
-	// setup vasynth initial values
-	vasynth.Init();
-
-	// load the default patch
-	vasynth.First(0);
+    vasynth = std::make_shared<VASynth>(hardware.AudioSampleRate());
 
 	// Initialize USB Midi 
     MidiUsbHandler::Config midi_cfg;
@@ -80,14 +64,8 @@ int main(void)
 	// let everything settle
 	System::Delay(100);
 	
-	// Stereo simulator
-	delay_.Init();
-	delay_.SetDelay(sysSampleRate * 0.01f);
-    
-    auto pSynth = std::make_shared<VASynth>(vasynth);
-    
-    Sequencer sequencer(pSynth);
-    MidiManager midi_manager(pSynth, std::make_unique<Sequencer>(sequencer));
+    Sequencer sequencer(vasynth);
+    MidiManager midi_manager(vasynth, std::make_unique<Sequencer>(sequencer));
 
 	// Start calling the audio callback
 	hardware.StartAudio(AudioCallback);

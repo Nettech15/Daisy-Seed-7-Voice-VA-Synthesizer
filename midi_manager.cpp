@@ -2,6 +2,11 @@
 #include "vasynth.h"
 #include "sequencer.h"
 
+#define MIDI_CHANNEL_ONE 0
+#define MIDI_CHANNEL_ALL 17
+
+static inline float fixed2float(uint8_t value, const float max = 127.0f ) { return (float)value / max; }
+
 MidiManager::MidiManager(std::shared_ptr<VASynth> va_synth, std::unique_ptr<Sequencer> sequencer) :
     vasynth_{va_synth},
     sequencer_{std::move(sequencer)}
@@ -11,12 +16,14 @@ MidiManager::MidiManager(std::shared_ptr<VASynth> va_synth, std::unique_ptr<Sequ
 // midi handler
 void MidiManager::HandleMidiMessage(MidiEvent m)
 {
+    uint8_t midi_channel = vasynth_->getMidiChannel();
+    
     switch(m.type)
     {
         case NoteOn:
         {
             NoteOnEvent p = m.AsNoteOn();
-            if ((vasynth_->midi_channel_ == MIDI_CHANNEL_ALL) || (p.channel == vasynth_->midi_channel_))
+            if ((midi_channel == MIDI_CHANNEL_ALL) || (p.channel == midi_channel))
 			{
 				if(sequencer_->get_mode() == Sequencer::Mode::RecordEnable)
 				{
@@ -30,7 +37,7 @@ void MidiManager::HandleMidiMessage(MidiEvent m)
         case NoteOff:
         {
             NoteOnEvent p = m.AsNoteOn();
-            if ((vasynth_->midi_channel_ == MIDI_CHANNEL_ALL) || (p.channel == vasynth_->midi_channel_))
+            if ((midi_channel == MIDI_CHANNEL_ALL) || (p.channel == midi_channel))
 			{
 				if(sequencer_->get_mode() == Sequencer::Mode::RecordEnable)
 				{
@@ -44,7 +51,7 @@ void MidiManager::HandleMidiMessage(MidiEvent m)
 		case PitchBend:
         {
             PitchBendEvent p = m.AsPitchBend();
-            if ((vasynth_->midi_channel_ == MIDI_CHANNEL_ALL) || (p.channel == vasynth_->midi_channel_))
+            if ((midi_channel == MIDI_CHANNEL_ALL) || (p.channel == midi_channel))
 			{
 				vasynth_->PitchBend(p.value);
 			}			
@@ -56,8 +63,7 @@ void MidiManager::HandleMidiMessage(MidiEvent m)
             switch(p.control_number)
             {
 				case 1: // Modulation Wheel
-					vasynth_->lfo_amp_ = ((float)p.value / 127.0f);
-                    vasynth_->SetLFO();
+                    vasynth_->SetLFO(fixed2float(p.value), VASynth::Param::Amp);
                     break;
 				case 7: // Data Slider Default (Volume)
 					switch(control_param_)
@@ -71,181 +77,164 @@ void MidiManager::HandleMidiMessage(MidiEvent m)
 						{
 							switch(p.value >> 5)
 							{
-								case 0:
-									vasynth_->waveform_ = WAVE_TRI;
-									break;
-								case 1:
-									vasynth_->waveform_ = WAVE_SAW;
-									break;
-								case 2:
-									vasynth_->waveform_ = WAVE_SQUARE;
-									break;
-								case 3:
-									vasynth_->waveform_ = WAVE_POLYBLEP_SAW;
-									break;
+                            case 0:
+                                vasynth_->SetWaveform(daisysp::Oscillator::WAVE_TRI, VASynth::OSCid::OSC1);
+                                break;
+                            case 1:
+                                vasynth_->SetWaveform(daisysp::Oscillator::WAVE_SAW, VASynth::OSCid::OSC1);
+                                break;
+                            case 2:
+                                vasynth_->SetWaveform(daisysp::Oscillator::WAVE_SQUARE, VASynth::OSCid::OSC1);
+                                break;
+                            case 3:
+                                vasynth_->SetWaveform(daisysp::Oscillator::WAVE_POLYBLEP_SAW, VASynth::OSCid::OSC1);
+                                break;
 							}
-							vasynth_->SetWaveform();
 							break;
 						}
 						case 2:
 						{
 							switch(p.value >> 5)
 							{
-								case 0:
-									vasynth_->osc2_waveform_ = WAVE_TRI;
-									break;
-								case 1:
-									vasynth_->osc2_waveform_ = WAVE_SAW;
-									break;
-								case 2:
-									vasynth_->osc2_waveform_ = WAVE_SQUARE;
-									break;
-								case 3:
-									vasynth_->osc2_waveform_ = WAVE_POLYBLEP_SAW;
-									break;
+                            case 0:
+                                vasynth_->SetWaveform(daisysp::Oscillator::WAVE_TRI, VASynth::OSCid::OSC2);
+                                break;
+                            case 1:
+                                vasynth_->SetWaveform(daisysp::Oscillator::WAVE_SAW, VASynth::OSCid::OSC2);
+                                break;
+                            case 2:
+                                vasynth_->SetWaveform(daisysp::Oscillator::WAVE_SQUARE, VASynth::OSCid::OSC2);
+                                break;
+                            case 3:
+                                vasynth_->SetWaveform(daisysp::Oscillator::WAVE_POLYBLEP_SAW, VASynth::OSCid::OSC2);
+                                break;
 							}
-							vasynth_->SetWaveform();
 							break;
 						}
 						case 3:
 						{
-							vasynth_->osc_mix_ = ((float)p.value / 127.0f);
+							vasynth_->SetOscillatorMix(fixed2float(p.value));
 							break;
 						}
 						case 4:
 						{
-							vasynth_->osc2_detune_ = ((float)p.value / 255.0f);
+							vasynth_->SetOsc2Detune(fixed2float(p.value, 255.0f));
 							break;
 						}
 						case 5:
 						{
-							vasynth_->osc2_transpose_ = (1.0f + ((float)p.value / 127.0f));
+							vasynth_->SetOsc2Transpose(1.0f + fixed2float(p.value));
 							break;
 						}
 						case 6:
 						{
-							vasynth_->filter_res_ = ((float)p.value / 127.0f);
-                    		vasynth_->SetFilter();
+                            vasynth_->SetFilterResonance(fixed2float(p.value));
 							break;
 						}
 						case 7:
 						{
-							vasynth_->osc_pw_ = ((float)p.value / 255.0f);
+							vasynth_->SetOscPw(fixed2float(p.value, 255.0f));
 							break;
 						}
 						case 8:
 						{
-							vasynth_->osc2_pw_ = ((float)p.value / 255.0f);
+							vasynth_->SetOsc2Pw(fixed2float(p.value, 255.0f));
 							break;
 						}
 						case 9:
 						{
-							vasynth_->eg_f_attack_ = ((float)p.value / 127.0f);
-							vasynth_->SetEG();
+                            vasynth_->SetEnvelopeGenerator(fixed2float(p.value), VASynth::EnvId::EnvFrequency, VASynth::AdsrParam::ADSR_SEG_ATTACK);
 							break;
 						}
 						case 10:
 						{
-							vasynth_->eg_f_decay_ = ((float)p.value / 127.0f);
-							vasynth_->SetEG();
+                            vasynth_->SetEnvelopeGenerator(fixed2float(p.value), VASynth::EnvId::EnvFrequency, VASynth::AdsrParam::ADSR_SEG_DECAY);
 							break;
 						}
 						case 11:
 						{
-							vasynth_->eg_f_sustain_ = ((float)p.value / 127.0f);
-							vasynth_->SetEG();
+                            vasynth_->SetEnvelopeGenerator(fixed2float(p.value), VASynth::EnvId::EnvFrequency, VASynth::AdsrParam::ADSR_SEG_SUSTAIN);
 							break;
 						}
 						case 12:
 						{
-							vasynth_->eg_f_release_ = ((float)p.value / 127.0f);
-							vasynth_->SetEG();
+                            vasynth_->SetEnvelopeGenerator(fixed2float(p.value), VASynth::EnvId::EnvFrequency, VASynth::AdsrParam::ADSR_SEG_RELEASE);
 							break;
 						}
 						case 13:
 						{
-							vasynth_->eg_a_attack_ = ((float)p.value / 127.0f);
-							vasynth_->SetEG();
+                            vasynth_->SetEnvelopeGenerator(fixed2float(p.value), VASynth::EnvId::EnvAmplitude, VASynth::AdsrParam::ADSR_SEG_ATTACK);
 							break;
 						}
 						case 14:
 						{
-							vasynth_->eg_a_decay_ = ((float)p.value / 127.0f);
-							vasynth_->SetEG();
+                            vasynth_->SetEnvelopeGenerator(fixed2float(p.value), VASynth::EnvId::EnvAmplitude, VASynth::AdsrParam::ADSR_SEG_DECAY);
 							break;
 						}
 						case 15:
 						{
-							vasynth_->eg_a_sustain_ = ((float)p.value / 127.0f);
-							vasynth_->SetEG();
+                            vasynth_->SetEnvelopeGenerator(fixed2float(p.value), VASynth::EnvId::EnvAmplitude, VASynth::AdsrParam::ADSR_SEG_SUSTAIN);                            
 							break;
 						}
 						case 16:
 						{
-							vasynth_->eg_a_release_ = ((float)p.value / 127.0f);
-							vasynth_->SetEG();
+                            vasynth_->SetEnvelopeGenerator(fixed2float(p.value), VASynth::EnvId::EnvAmplitude, VASynth::AdsrParam::ADSR_SEG_RELEASE);                            
+
 							break;
 						}
 						case 17:
 						{
-							vasynth_->vcf_kbd_follow_= ((float)p.value / 127.0f);
+							vasynth_->SetVcfKbdFollow(fixed2float(p.value));
 							break;
 						}
 						case 18:
 						{
-							vasynth_->env_kbd_follow_ = ((float)p.value / 127.0f);
+							vasynth_->SetEnvKbdFollow(fixed2float(p.value));
 							break;
 						}
 						case 19:
 						{
-							vasynth_->vel_select_ = p.value >> 5;
+							vasynth_->SetVelSelect(p.value >> 5);
 							break;
 						}
 						case 20:
 						{
-							vasynth_->eg_f_amount_ = ((float)p.value / 127.0f);
+							vasynth_->SetFreqEnvGenAmount(fixed2float(p.value));
 							break;
 						}
 						case 21:
 						{
-							vasynth_->lfo_freq_ = ((float)p.value / 127.0f);
-							vasynth_->SetLFO();
+							vasynth_->SetLFO(fixed2float(p.value), VASynth::Param::Frequency);
 							break;
 						}
 						case 22:
 						{
-							vasynth_->pwmlfo_freq_ = ((float)p.value / 127.0f);
-							vasynth_->SetPWMLFO();
+							vasynth_->SetPWMLFO(fixed2float(p.value), VASynth::Param::Frequency);
 							break;
 						}
 						case 23:
 						{
-							vasynth_->pwmlfo_amp_ = ((float)p.value / 511.0f);
-							vasynth_->SetPWMLFO();
+							vasynth_->SetPWMLFO(fixed2float(p.value, 511.0f), VASynth::Param::Amp);
 							break;
 						}
 						case 24:
 						{
-							vasynth_->pwm2lfo_freq_ = ((float)p.value / 127.0f);
-							vasynth_->SetPWM2LFO();
+							vasynth_->SetPWM2LFO(fixed2float(p.value), VASynth::Param::Frequency);
 							break;
 						}
 						case 25:
 						{
-							vasynth_->pwm2lfo_amp_ = ((float)p.value / 511.0f);
-							vasynth_->SetPWM2LFO();
+							vasynth_->SetPWM2LFO(fixed2float(p.value, 511.0f), VASynth::Param::Amp);
 							break;
 						}
 						case 26:
 						{
-							vasynth_->vcavcflfo_freq_ = ((float)p.value / 127.0f);
-							vasynth_->SetVCAVCFLFO();
+							vasynth_->SetVCAVCFLFO(fixed2float(p.value), VASynth::Param::Frequency);
 							break;
 						}
 						case 27:
 						{
-							vasynth_->vcavcflfo_amp_ = ((float)p.value / 127.0f);
-							vasynth_->SetVCAVCFLFO();
+							vasynth_->SetVCAVCFLFO(fixed2float(p.value), VASynth::Param::Amp);
 							break;
 						}
 						case 28:
@@ -253,19 +242,18 @@ void MidiManager::HandleMidiMessage(MidiEvent m)
 							switch(p.value >> 5)
 							{
 								case 0:
-									vasynth_->vcavcflfo_waveform_ = WAVE_TRI;
+                                    vasynth_->SetVCAVCFLFO(daisysp::Oscillator::WAVE_TRI, VASynth::Param::Waveform);
 									break;
 								case 1:
-									vasynth_->vcavcflfo_waveform_ = WAVE_SAW;
+                                    vasynth_->SetVCAVCFLFO(daisysp::Oscillator::WAVE_SAW, VASynth::Param::Waveform);
 									break;
 								case 2:
-									vasynth_->vcavcflfo_waveform_ = WAVE_SQUARE;
+                                    vasynth_->SetVCAVCFLFO(daisysp::Oscillator::WAVE_SQUARE, VASynth::Param::Waveform);
 									break;
 								case 3:
-									vasynth_->vcavcflfo_waveform_ = WAVE_POLYBLEP_SAW;
+                                    vasynth_->SetVCAVCFLFO(daisysp::Oscillator::WAVE_POLYBLEP_SAW, VASynth::Param::Waveform);
 									break;
 							}
-							vasynth_->SetVCAVCFLFO();
 							break;
 						}
 					}
@@ -277,7 +265,7 @@ void MidiManager::HandleMidiMessage(MidiEvent m)
 		case ProgramChange:
         {
             ProgramChangeEvent p = m.AsProgramChange();
-            if ((vasynth_->midi_channel_ == MIDI_CHANNEL_ALL) || (p.channel == vasynth_->midi_channel_))
+            if ((midi_channel == MIDI_CHANNEL_ALL) || (p.channel == midi_channel))
 			{
 				if(p.program >= 29)
 				{
