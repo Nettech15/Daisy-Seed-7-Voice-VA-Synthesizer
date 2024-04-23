@@ -4,18 +4,11 @@
 
 #include "daisysp.h"
 
-#include "main.h"
-
 // preset
 #define PRESET_MAX 2
 
-// waveforms
-#define WAVE_TRI 1
-#define WAVE_SAW 2
-#define WAVE_SQUARE 4
-#define WAVE_POLYBLEP_SAW 6 
+#define VOICES_MAX 8
 
-using namespace daisy;
 using namespace daisysp;
 
 typedef struct
@@ -68,31 +61,62 @@ typedef struct
 
 class VASynth
 {
-	public:
+public:
+    
+    enum OSCid { OSC1, OSC2, MAX_OSC };
+    enum Param { Waveform, Frequency, Amp };
+    enum AdsrParam {
+        ADSR_SEG_ATTACK = daisysp::ADSR_SEG_ATTACK,
+        ADSR_SEG_DECAY = daisysp::ADSR_SEG_DECAY,
+        ADSR_SEG_RELEASE = daisysp::ADSR_SEG_RELEASE,
+        ADSR_SEG_SUSTAIN = ADSR_SEG_RELEASE << 1
+    };
+    
+    enum EnvId { EnvAmplitude, EnvFrequency };
 
-    VASynth() {}
-    ~VASynth() {}
-
-	void Init();
-	void First(uint8_t);
-	void SetWaveform();
+    VASynth(float sample_rate, unsigned initial_patch = 0);
+    ~VASynth() = default;
+    
+    void Init();
+    
+    void SetMasterTune(int16_t data);
+	void SetWaveform(uint8_t waveform, OSCid osc);
 	void SetEG();
-	void SetFilter();
-	void SetLFO();
-	void SetPWMLFO();
-	void SetPWM2LFO();
-	void SetVCAVCFLFO();
+    void SetFilterCutoff(float cutoff);
+    void SetFilterResonance(float res);
+
+	void SetLFO(float value, Param param);
+	void SetPWMLFO(float value, Param param);
+	void SetPWM2LFO(float value, Param param);
+	void SetVCAVCFLFO(float value, Param param);
 	void Process(float *, float *);
 	void NoteOn(uint8_t, uint8_t);
 	void NoteOff(uint8_t);
 	void FlashLoad(uint8_t aSlot);
 	void FlashSave(uint8_t aSlot);
-	void ProgramChange(uint8_t data);
 	void PitchBend(int16_t data);
 	void SaveToLive(VASynthSetting *);
 	void LiveToSave(VASynthSetting *);
+    
+    void SetOscillatorMix(float osc_mix) { osc_mix_ = osc_mix; }
+    void SetOscPw(float value) { osc_pw_ = value; }
+    void SetOsc2Pw(float value) { osc2_pw_ = value; }
+    void SetOsc2Detune(float value) { osc2_detune_ = value; }
+    void SetOsc2Transpose(float value) { osc2_transpose_ = value; }
+    
+    void SetEnvelopeGenerator(float value, EnvId id, AdsrParam param);
+    void SetVcfKbdFollow(float value) { vcf_kbd_follow_ = value; }
+    void SetEnvKbdFollow(float value) { env_kbd_follow_ = value; }
+    void SetFreqEnvGenAmount(float value) { eg_f_amount_ = value; }
+    void SetVelSelect(uint8_t value) { vel_select_ = value; }
+    
+    uint8_t getMidiChannel() { return midi_channel_; }
+    
+    bool IsPlaying() { return isPlaying; }
 
-//private:
+private:
+
+    bool isPlaying;
 
 	// config
 	float sample_rate_;
@@ -158,7 +182,10 @@ class VASynth
 	Oscillator vcavcflfo_;
 	Adsr eg_a_[VOICES_MAX];
 	Adsr eg_f_[VOICES_MAX];
-	LadderFilter flt[VOICES_MAX];
+	daisysp::MoogLadder flt[VOICES_MAX];
+    
+    float pitch_bend_;
+    float master_tune_;
 };
 
 #endif

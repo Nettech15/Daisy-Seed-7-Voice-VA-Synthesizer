@@ -1,49 +1,45 @@
 #include "daisy_seed.h"
 #include "daisysp.h"
 
-#include "main.h"
 #include "vasynth.h"
 
 using namespace daisy;
 using namespace daisysp;
 
+#define FILTER_CUTOFF_MAX 18000.0f
+// delay
+#define DELAY_MAX static_cast<size_t>(48000 * DELAY_MAX_S)
+#define DELAY_MAX_S 1.0f // delay max in seconds
+#define MIDI_CHANNEL_ONE 0
+#define MIDI_VELOCITY_MAX 127
+
+
 // globals
 extern DaisySeed hardware;
-extern float sysSampleRate;
-extern uint8_t gPlay;
 
-extern uint8_t param_;
-extern float pitch_bend;
-extern float master_tune;
-
-extern DelayLine<float, DELAY_MAX> DSY_SDRAM_BSS delay_;
-
-// presets
-
-uint8_t preset_max = PRESET_MAX;
-uint8_t preset_number = 0;
+DelayLine<float, DELAY_MAX> DSY_SDRAM_BSS delay_;
 
 VASynthSetting preset_setting[PRESET_MAX] = 
 {
 	{//1
-		WAVE_POLYBLEP_SAW, 0.5f, 0.0f, 0.5f,
-		WAVE_POLYBLEP_SAW, 0.06f, 1.0f, 0.5f,
+		daisysp::Oscillator::WAVE_POLYBLEP_SAW, 0.5f, 0.0f, 0.5f,
+		daisysp::Oscillator::WAVE_POLYBLEP_SAW, 0.06f, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
-		WAVE_TRI, 0.5f, 0.0f,
-		WAVE_TRI, 0.2f, 0.2f,
-		WAVE_TRI, 0.1f, 0.2f,
-		WAVE_SAW, 0.2f, 0.0f,
+		daisysp::Oscillator::WAVE_TRI, 0.5f, 0.0f,
+		daisysp::Oscillator::WAVE_TRI, 0.2f, 0.2f,
+		daisysp::Oscillator::WAVE_TRI, 0.1f, 0.2f,
+		daisysp::Oscillator::WAVE_SAW, 0.2f, 0.0f,
 		0.0f, 0.0f,
 		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	},
 	{//2
-		WAVE_SQUARE, 0.5f, 0.0f, 0.5f,
-		WAVE_SQUARE, 0.06f, 1.0f, 0.5f,
+		daisysp::Oscillator::WAVE_SQUARE, 0.5f, 0.0f, 0.5f,
+		daisysp::Oscillator::WAVE_SQUARE, 0.06f, 1.0f, 0.5f,
 		0.0f, 0.4f, 1.0f, 0.1f,   0.0f, 0.4f, 0.2f, 0.1f,
-		WAVE_TRI, 0.5f, 0.0f,
-		WAVE_TRI, 0.2f, 0.2f,
-		WAVE_TRI, 0.1f, 0.2f,
-		WAVE_SAW, 0.2f, 0.0f,
+		daisysp::Oscillator::WAVE_TRI, 0.5f, 0.0f,
+		daisysp::Oscillator::WAVE_TRI, 0.2f, 0.2f,
+		daisysp::Oscillator::WAVE_TRI, 0.1f, 0.2f,
+		daisysp::Oscillator::WAVE_SAW, 0.2f, 0.0f,
 		0.0f, 0.0f,
 		0.2f, FILTER_CUTOFF_MAX, 1.0f, 1, MIDI_CHANNEL_ONE
 	}
@@ -62,9 +58,24 @@ vcf_kbd_follow, env_kbd_follow,
 filter_res, filter_cutoff, eg_f_amount, vel_select, midi_channel;
 */
 
+VASynth::VASynth(float sample_rate, unsigned initial_patch) 
+    : isPlaying{false}, sample_rate_{sample_rate}
+{
+    Init();
+    
+    // Stereo simulator
+	delay_.Init();
+	delay_.SetDelay(sample_rate_ * 0.01f);
+    
+    if (initial_patch < PRESET_MAX)
+    {
+        SaveToLive(&preset_setting[initial_patch]);
+    }
+}
+
 void VASynth::Init()
 {
-	for (uint8_t i = 0; i < VOICES_MAX; i++)
+    for (uint8_t i = 0; i < VOICES_MAX; i++)
 	{
 		// oscillator
 		osc_[i].Init(sample_rate_);
@@ -122,21 +133,30 @@ void VASynth::Init()
 
     // init
     osc_next_ = 0;
+    pitch_bend_ = 1.0f;
+    master_tune_ = 0.0f;
+    
+    isPlaying = true;
 }
 
-void VASynth::First(uint8_t patch)
+void VASynth::SetWaveform(uint8_t waveform, OSCid osc)
 {
-	sample_rate_ = sysSampleRate;
-	SaveToLive(&preset_setting[patch]);
-}	
-
-void VASynth::SetWaveform()
-{
-	for (uint8_t i = 0; i < VOICES_MAX; i++)
-	{
-		osc_[i].SetWaveform(waveform_);
-		osc2_[i].SetWaveform(osc2_waveform_);
-	}
+    if (osc == OSCid::OSC1)
+    {
+        waveform_ = waveform;
+        for (uint8_t i = 0; i < VOICES_MAX; i++)
+        {
+            osc_[i].SetWaveform(waveform_);
+        }
+    }
+    else if (osc == OSCid::OSC2)
+    {
+        osc2_waveform_ = waveform;
+        for (uint8_t i = 0; i < VOICES_MAX; i++)
+        {
+            osc2_[i].SetWaveform(osc2_waveform_);
+        }
+    }
 }
 
 void VASynth::SetEG()
@@ -157,41 +177,141 @@ void VASynth::SetEG()
 	}
 }
 
-void VASynth::SetFilter()
+void VASynth::SetEnvelopeGenerator(float value, EnvId id, AdsrParam param)
 {
+    switch (id)
+    {
+    case EnvId::EnvAmplitude:
+        switch (param)
+        {
+        case AdsrParam::ADSR_SEG_ATTACK:
+            eg_a_attack_ = value;
+            break;
+        case AdsrParam::ADSR_SEG_DECAY:
+            eg_a_decay_ = value;
+            break;
+        case AdsrParam::ADSR_SEG_SUSTAIN:
+            eg_a_sustain_ = value;
+            break;
+        case AdsrParam::ADSR_SEG_RELEASE:
+            eg_a_release_ = value;
+            break;
+        }    
+        break;
+    case EnvId::EnvFrequency:
+        switch (param)
+        {
+        case AdsrParam::ADSR_SEG_ATTACK:
+            eg_f_attack_ = value;
+            break;
+        case AdsrParam::ADSR_SEG_DECAY:
+            eg_f_decay_ = value;
+            break;
+        case AdsrParam::ADSR_SEG_SUSTAIN:
+            eg_f_sustain_ = value;
+            break;
+        case AdsrParam::ADSR_SEG_RELEASE:
+            eg_f_release_ = value;
+            break;
+        }
+        break; 
+    }
+    
+    SetEG();
+}
+
+void VASynth::SetFilterCutoff(float cutoff)
+{
+    filter_cutoff_ = cutoff;
 	for (uint8_t i = 0; i < VOICES_MAX; i++)
 	{
 		flt[i].SetFreq(filter_cutoff_);
+	}
+}
+
+void VASynth::SetFilterResonance(float res)
+{
+    filter_res_ = res;
+	for (uint8_t i = 0; i < VOICES_MAX; i++)
+	{
 		flt[i].SetRes(filter_res_);
 	}
 }
 
-void VASynth::SetLFO()
+void VASynth::SetLFO(float value, Param param)
 {
-	lfo_.SetWaveform(lfo_waveform_);
-	lfo_.SetFreq(lfo_freq_ * 8.0f);
-	lfo_.SetAmp(lfo_amp_);
+    switch (param)
+    {
+    case Param::Waveform:
+        lfo_waveform_ = static_cast<uint8_t>(value);
+	    lfo_.SetWaveform(lfo_waveform_);
+        break;
+    case Param::Frequency:
+        lfo_freq_ = value;
+	    lfo_.SetFreq(lfo_freq_ * 8.0f);
+        break;
+    case Param::Amp:
+        lfo_amp_ = value;
+	    lfo_.SetAmp(lfo_amp_);
+        break;
+    }
 }
 
-void VASynth::SetPWMLFO()
+void VASynth::SetPWMLFO(float value, Param param)
 {
-	pwmlfo_.SetWaveform(pwmlfo_waveform_);
-	pwmlfo_.SetFreq(pwmlfo_freq_);
-	pwmlfo_.SetAmp(pwmlfo_amp_);
+    switch (param)
+    {
+    case Param::Waveform:
+        pwmlfo_waveform_ = static_cast<uint8_t>(value);
+	    pwmlfo_.SetWaveform(pwmlfo_waveform_);
+        break;
+    case Param::Frequency:
+        pwmlfo_freq_ = value;
+	    pwmlfo_.SetFreq(pwmlfo_freq_);
+        break;
+    case Param::Amp:
+        pwmlfo_amp_ = value;
+	    pwmlfo_.SetAmp(pwmlfo_amp_);
+        break;
+    }
 }
 
-void VASynth::SetPWM2LFO()
+void VASynth::SetPWM2LFO(float value, Param param)
 {
-	pwm2lfo_.SetWaveform(pwm2lfo_waveform_);
-	pwm2lfo_.SetFreq(pwm2lfo_freq_);
-	pwm2lfo_.SetAmp(pwm2lfo_amp_);
+    switch (param)
+    {
+    case Param::Waveform:
+        pwm2lfo_waveform_ = static_cast<uint8_t>(value);
+	    pwm2lfo_.SetWaveform(pwm2lfo_waveform_);
+        break;
+    case Param::Frequency:
+        pwm2lfo_freq_ = value;
+	    pwm2lfo_.SetFreq(pwm2lfo_freq_);
+        break;
+    case Param::Amp:
+        pwm2lfo_amp_ = value;
+	    pwm2lfo_.SetAmp(pwm2lfo_amp_);
+        break;
+    }
 }
 
-void VASynth::SetVCAVCFLFO()
+void VASynth::SetVCAVCFLFO(float value, Param param)
 {
-	vcavcflfo_.SetWaveform(vcavcflfo_waveform_);
-	vcavcflfo_.SetFreq(vcavcflfo_freq_ * 8.0f);
-	vcavcflfo_.SetAmp(vcavcflfo_amp_);
+    switch (param)
+    {
+    case Param::Waveform:
+        vcavcflfo_waveform_ = static_cast<uint8_t>(value);
+	    vcavcflfo_.SetWaveform(vcavcflfo_waveform_);
+        break;
+    case Param::Frequency:
+        vcavcflfo_freq_ = value;
+	    vcavcflfo_.SetFreq(vcavcflfo_freq_ * 8.0f);
+        break;
+    case Param::Amp:
+        vcavcflfo_amp_ = value;
+	    vcavcflfo_.SetAmp(vcavcflfo_amp_);
+        break;
+    }
 }
 
 void VASynth::Process(float *out_l, float *out_r)
@@ -267,8 +387,8 @@ void VASynth::Process(float *out_l, float *out_r)
 		}
 
 		// Set osc + osc2 frequencies with pitch bend, mod wheel, master tuning, and osc2 detune
-		tuning = bender_offset[i] * master_tune;
-		bender = bender_offset[i] * pitch_bend;
+		tuning = bender_offset[i] * master_tune_;
+		bender = bender_offset[i] * pitch_bend_;
 		pitchmod = bender_offset[i] * lfo_out;
 		detune = bender_offset[i] * osc2_detune_;
 		osc_[i].SetFreq((note_freq_[i] + detune_ + bender + tuning + pitchmod));
@@ -343,12 +463,12 @@ void VASynth::NoteOff(uint8_t midi_note)
 
 void VASynth::PitchBend(int16_t data)
 {
-	pitch_bend = 1.0f - (2.0f * ((float)data / 8192.0f));
+	pitch_bend_ = 1.0f - (2.0f * ((float)data / 8192.0f));
 }	
 
-void VASynth::ProgramChange(uint8_t data)
+void VASynth::SetMasterTune(int16_t data)
 {
-	param_= data;
+    master_tune_ = 1.0f - ((float)data / 64.0f);
 }
 
 // Flash handling - load and save
@@ -392,7 +512,7 @@ void VASynth::FlashSave(uint8_t aSlot)
 
 void VASynth::SaveToLive(VASynthSetting *vas)
 {
-	gPlay = PLAY_OFF;
+	isPlaying = false;
 	
 	waveform_ = vas->waveform;
 	osc_mix_ = vas->osc_mix;
@@ -438,7 +558,7 @@ void VASynth::SaveToLive(VASynthSetting *vas)
 	osc_next_ = 0;
 	Init();
 	
-	gPlay = PLAY_ON;
+	isPlaying = true;
 }
 
 void VASynth::LiveToSave(VASynthSetting *vas)
