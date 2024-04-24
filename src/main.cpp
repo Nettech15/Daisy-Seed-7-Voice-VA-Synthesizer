@@ -11,7 +11,12 @@ Feel free to copy, modify, and improve this code to match your equipment and sou
 
 #include "vasynth.h"
 #include "sequencer.h"
-#include "miditech_i2_61.h"
+
+#ifdef MIDI_TECH_I2_61
+ #include "miditech_i2_61.h"
+#else
+ #include "midi_manager.h"
+#endif
 
 using namespace daisy;
 using namespace daisysp;
@@ -67,8 +72,12 @@ int main(void)
     Sequencer sequencer(vasynth);
 
     std::unique_ptr<MidiManager> midi_manager
+#ifdef MIDI_TECH_I2_61
         = std::make_unique<MidiTech_i2_61>(
             vasynth, std::make_unique<Sequencer>(sequencer));
+#else
+       /* TODO Additional Midi interface declarations */;
+#endif
 
     // Start calling the audio callback
     hardware.StartAudio(AudioCallback);

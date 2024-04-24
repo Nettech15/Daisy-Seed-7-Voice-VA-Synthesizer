@@ -19,7 +19,9 @@ class MidiManager
     MidiManager(std::shared_ptr<VASynth>   va_synth,
                 std::unique_ptr<Sequencer> sequencer);
 
-    virtual void HandleMidiMessage(MidiEvent m);
+    ~MidiManager() = default;
+
+    virtual void HandleMidiMessage(MidiEvent m) = 0;
 
   protected:
     std::shared_ptr<VASynth>   vasynth_;
