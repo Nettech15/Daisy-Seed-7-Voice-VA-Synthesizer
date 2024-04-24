@@ -7,7 +7,7 @@
 // preset
 #define PRESET_MAX 2
 
-#define VOICES_MAX 8
+#define VOICES_MAX 7
 
 using namespace daisysp;
 

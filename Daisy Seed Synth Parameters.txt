@@ -1,6 +1,6 @@
-Editable Parameters:
+MidiTech i2 61 Editable Parameters:
 
-Select Program Change 1 thru 29, then adjust the parameters value by moving the 
+Select Program Change 1 thru 29, then adjust the parameters value by moving the
 Data Slider (Volume = CC#7).
 
  (1): // Master Tuning
